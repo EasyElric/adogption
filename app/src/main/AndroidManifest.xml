@@ -24,6 +24,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mobile4623.easy.adogption.LoginScreen" />
         </activity>
+        <activity android:name=".OwnerHome"></activity>
     </application>
 
 </manifest>

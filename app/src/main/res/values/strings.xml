@@ -6,5 +6,9 @@
     <string name="search_btn">Search</string>
     <string name="profile_btn">Profile</string>
     <string name="favs_btn">Favorites</string>
+    <string name="requests_btn">View Requests</string>
+    <string name="manage_pets_btn">Manage Pets</string>
+    <string name="add_pet_btn">Add Pet</string>
+
 
 </resources>
