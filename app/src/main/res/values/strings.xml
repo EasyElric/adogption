@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Adogption</string>
+    <string name="facebook_login">FACEBOOK</string>
+    <string name="loginBtn">LOGIN</string>
+    <string name="title_activity_user_home">UserHome</string>
+    <string name="search_btn">Search</string>
+    <string name="profile_btn">Profile</string>
+    <string name="favs_btn">Favorites</string>
+
+</resources>
