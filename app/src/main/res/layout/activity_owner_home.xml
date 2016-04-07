@@ -28,7 +28,9 @@
             android:layout_weight=".1"
             android:layout_gravity="center"
             android:text="@string/requests_btn"
-            android:textSize="20dp"/>
+            android:textSize="23dp"
+            android:background="@drawable/button_rounded"
+            android:layout_marginBottom="2dp"/>
 
         <Button
             android:id="@+id/manage_pets_button"
@@ -37,7 +39,9 @@
             android:layout_weight=".1"
             android:layout_gravity="center"
             android:text="@string/manage_pets_btn"
-            android:textSize="30dp"/>
+            android:textSize="20dp"
+            android:background="@drawable/button_rounded"
+            android:layout_marginBottom="2dp"/>
 
         <Button
             android:id="@+id/add_pets_button"
@@ -46,7 +50,9 @@
             android:layout_weight=".1"
             android:layout_gravity="center"
             android:text="@string/add_pet_btn"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            android:background="@drawable/button_rounded"
+            android:layout_marginBottom="2dp"/>
 
         <Button
             android:id="@+id/profile_button"
@@ -55,7 +61,8 @@
             android:layout_weight=".1"
             android:layout_gravity="center"
             android:text="@string/profile_btn"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            android:background="@drawable/button_rounded"/>
 
         <Space
             android:layout_width="match_parent"

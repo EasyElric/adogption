@@ -30,7 +30,9 @@
             android:layout_weight=".15"
             android:layout_gravity="center"
             android:text="@string/search_btn"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            android:background="@drawable/button_rounded"
+            android:layout_marginBottom="2dp"/>
 
         <Button
             android:id="@+id/profile_button"
@@ -39,7 +41,9 @@
             android:layout_weight=".15"
             android:layout_gravity="center"
             android:text="@string/profile_btn"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            android:background="@drawable/button_rounded"
+            android:layout_marginBottom="2dp"/>
 
         <Button
             android:id="@+id/favs_button"
@@ -48,7 +52,9 @@
             android:layout_weight=".15"
             android:layout_gravity="center"
             android:text="@string/favs_btn"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            android:background="@drawable/button_rounded"
+            android:layout_marginBottom="2dp"/>
 
         <Space
             android:layout_width="match_parent"

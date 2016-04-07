@@ -9,6 +9,6 @@
     <string name="requests_btn">View Requests</string>
     <string name="manage_pets_btn">Manage Pets</string>
     <string name="add_pet_btn">Add Pet</string>
-
+    <string name="facebook_app_id">697707400369083</string>
 
 </resources>
