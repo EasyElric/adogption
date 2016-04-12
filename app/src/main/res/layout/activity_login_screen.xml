@@ -83,8 +83,7 @@
                 android:layout_weight=".3"
                 android:layout_height="match_parent"
                 android:text="@string/loginBtn"
-                android:onClick="onLogin"
-                android:background="@drawable/button_rounded"/>
+                android:onClick="onLogin"/>
 
             <Space
                 android:layout_height="match_parent"
