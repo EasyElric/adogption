@@ -6,13 +6,13 @@ package com.mobile4623.easy.adogption;
 public class Pet {
 
     // to consider: price, characteristics?
-    private String name;
-    private String breed;
-    private String age;
-    private String animal;
-    private String picture;
-    private String description;
-    private String location;
+    private String name ="";
+    private String breed="";
+    private String age="";
+    private String animal="";
+    private String picture="";
+    private String description="";
+    private String location="";
 
     public Pet(){
         //constructor code
