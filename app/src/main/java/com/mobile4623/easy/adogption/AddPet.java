@@ -28,9 +28,9 @@ public class AddPet extends Activity {
 
 
     EditText txtName;
-    EditText txtPrice;
-    EditText txtDesc;
-    EditText txtCreatedAt;
+    EditText txtAge;
+    //EditText txtDesc;
+    //EditText txtCreatedAt;
     Button btnAdd;
     //Button btnDelete;
 
@@ -46,7 +46,7 @@ public class AddPet extends Activity {
     private static final String TAG_PRODUCT = "product";
     private static final String TAG_PID = "pid";
     private static final String TAG_NAME = "name";
-    private static final String TAG_PRICE = "price";
+    private static final String TAG_AGE = "age";
     private static final String TAG_DESCRIPTION = "description";
 
     private int updateStatus = 0;
@@ -67,13 +67,24 @@ public class AddPet extends Activity {
         animalType.setAdapter(adapter);
 
 
+
+
         // save button click event
         btnAdd.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
+
+                txtName = (EditText) findViewById(R.id.add_name);
+                txtAge = (EditText) findViewById(R.id.add_age);
+
+                String name = txtName.getText().toString();
+                String age = txtAge.getText().toString();
+                //String description = txtDesc.getText().toString();
+
                 // starting background task to update product
-                new onAddPet().execute();
+
+                new onAddPet().execute(name,age);
             }
         });
     }
@@ -94,6 +105,7 @@ public class AddPet extends Activity {
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
+
         }
 
         /**
@@ -101,22 +113,25 @@ public class AddPet extends Activity {
          * */
         protected String doInBackground(String... args) {
 
-            // getting updated data from EditTexts
-            String name = txtName.getText().toString();
-            String price = txtPrice.getText().toString();
-            String description = txtDesc.getText().toString();
+
+            String name = args[0];
+            String age = args[1];
+
+            //String name = txtName.getText().toString();
+            //String age = txtAge.getText().toString();
+            //String description = txtDesc.getText().toString();
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair(TAG_PID, pid));
+            //params.add(new BasicNameValuePair(TAG_PID, pid));
             params.add(new BasicNameValuePair(TAG_NAME, name));
-            params.add(new BasicNameValuePair(TAG_PRICE, price));
-            params.add(new BasicNameValuePair(TAG_DESCRIPTION, description));
+            params.add(new BasicNameValuePair(TAG_AGE, age));
+            //params.add(new BasicNameValuePair(TAG_DESCRIPTION, description));
 
             // sending modified data through http request
             // Notice that update product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(
-                    WebConstants.URL_UPDATE_PRODUCT, "POST", params);
+                    WebConstants.URL_CREATE_PET, "POST", params);
 
             // check json success tag
             try {
