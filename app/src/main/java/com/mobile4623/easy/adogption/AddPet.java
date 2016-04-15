@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -117,6 +118,9 @@ public class AddPet extends Activity {
             String name = args[0];
             String age = args[1];
 
+            //test
+            Log.e("Name", name);
+
             //String name = txtName.getText().toString();
             //String age = txtAge.getText().toString();
             //String description = txtDesc.getText().toString();
@@ -128,27 +132,38 @@ public class AddPet extends Activity {
             params.add(new BasicNameValuePair(TAG_AGE, age));
             //params.add(new BasicNameValuePair(TAG_DESCRIPTION, description));
 
+
             // sending modified data through http request
             // Notice that update product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(
                     WebConstants.URL_CREATE_PET, "POST", params);
 
-            // check json success tag
-            try {
-                int success = json.getInt(TAG_SUCCESS);
 
-                if (success == 1) {
-                    // successfully updated
-                    Intent i = getIntent();
-                    // send result code 100 to notify about product update
-                    setResult(100, i);
-                    finish();
-                } else {
-                    // failed to update product
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
+            //debug test
+            try {
+
+                Log.i("JSON Parser", json.getString(TAG_SUCCESS));
+            }catch (Exception e) {
+                Log.e("Buffer Error", "Error converting result " + e.toString());
             }
+
+
+            // check json success tag
+//            try {
+//                int success = json.getInt(TAG_SUCCESS);
+//
+//                if (success == 1) {
+//                    // successfully updated
+//                    Intent i = getIntent();
+//                    // send result code 100 to notify about product update
+//                    setResult(100, i);
+//                    finish();
+//                } else {
+//                    // failed to update product
+//                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
 
             return null;
         }
