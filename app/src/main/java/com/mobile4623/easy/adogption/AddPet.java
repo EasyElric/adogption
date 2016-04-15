@@ -30,8 +30,11 @@ public class AddPet extends Activity {
 
     EditText txtName;
     EditText txtAge;
-    //EditText txtDesc;
-    //EditText txtCreatedAt;
+    Spinner txtAnimal;
+    EditText txtBreed;
+    EditText txtDescription;
+    EditText txtLocation;
+
     Button btnAdd;
     //Button btnDelete;
 
@@ -44,10 +47,11 @@ public class AddPet extends Activity {
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_PRODUCT = "product";
-    private static final String TAG_PID = "pid";
+    private static final String TAG_ANIMAL = "animal";
+    private static final String TAG_BREED = "breed";
     private static final String TAG_NAME = "name";
     private static final String TAG_AGE = "age";
+    private static final String TAG_LOCATION = "location";
     private static final String TAG_DESCRIPTION = "description";
 
     private int updateStatus = 0;
@@ -78,14 +82,21 @@ public class AddPet extends Activity {
 
                 txtName = (EditText) findViewById(R.id.add_name);
                 txtAge = (EditText) findViewById(R.id.add_age);
+                txtAnimal = (Spinner) findViewById(R.id.add_animal);
+                txtBreed = (EditText) findViewById(R.id.add_breed);
+                txtLocation = (EditText) findViewById(R.id.add_location);
+                txtDescription = (EditText) findViewById(R.id.add_description);
 
                 String name = txtName.getText().toString();
                 String age = txtAge.getText().toString();
-                //String description = txtDesc.getText().toString();
+                String animal = txtAnimal.getSelectedItem().toString();
+                String breed = txtBreed.getText().toString();
+                String location = txtLocation.getText().toString();
+                String description = txtDescription.getText().toString();
 
                 // starting background task to update product
 
-                new onAddPet().execute(name,age);
+                new onAddPet().execute(name,age,animal, breed, location, description);
             }
         });
     }
@@ -117,21 +128,23 @@ public class AddPet extends Activity {
 
             String name = args[0];
             String age = args[1];
+            String animal = args[2];
+            String breed = args[3];
+            String location = args[4];
+            String description = args[5];
+
 
             //test
             Log.e("Name", name);
 
-            //String name = txtName.getText().toString();
-            //String age = txtAge.getText().toString();
-            //String description = txtDesc.getText().toString();
-
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            //params.add(new BasicNameValuePair(TAG_PID, pid));
             params.add(new BasicNameValuePair(TAG_NAME, name));
             params.add(new BasicNameValuePair(TAG_AGE, age));
-            //params.add(new BasicNameValuePair(TAG_DESCRIPTION, description));
-
+            params.add(new BasicNameValuePair(TAG_BREED, breed));
+            params.add(new BasicNameValuePair(TAG_ANIMAL, animal));
+            params.add(new BasicNameValuePair(TAG_LOCATION, location));
+            params.add(new BasicNameValuePair(TAG_DESCRIPTION, description));
 
             // sending modified data through http request
             // Notice that update product url accepts POST method

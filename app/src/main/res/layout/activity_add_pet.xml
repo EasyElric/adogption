@@ -2,50 +2,63 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#11395a">
+    android:background="@color/BackgroundBlue">
 
-    <EditText
-        android:id="@+id/add_name"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".1"
-        android:hint="Pet Name"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/add_animal"
+        <EditText
+            android:id="@+id/add_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1"
+            android:hint="Pet Name"/>
+
+        <Spinner
+            android:id="@+id/add_animal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".1"
-        />
-    <EditText
-        android:id="@+id/add_breed"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".1"
-        android:hint="Breed"/>
-    <EditText
-        android:id="@+id/add_age"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".1"
-        android:hint="Age"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/add_breed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1"
+            android:hint="Breed"/>
+        <EditText
+            android:id="@+id/add_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1"
+            android:hint="Age"/>
+    </LinearLayout>
+
     <EditText
         android:id="@+id/add_description"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".1"
+        android:layout_height="wrap_content"
         android:hint="Description"/>
     <EditText
         android:id="@+id/add_picture"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".1"
+        android:layout_height="wrap_content"
+
         android:hint="UPLOAD PICTURE PLACEHOLDER"/>
     <EditText
         android:id="@+id/add_location"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".1"
+        android:layout_height="wrap_content"
         android:hint="Location"/>
 
     <Button
