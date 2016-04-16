@@ -14,8 +14,9 @@ public class OwnerHome extends AppCompatActivity {
         setContentView(R.layout.activity_owner_home);
 
         Button btnNewPet = (Button) findViewById(R.id.add_pets_button);
+        Button btnGoToUserHome = (Button) findViewById(R.id.btnGoToUserHome);
 
-        // view products click event
+        // add pet click event
         btnNewPet.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -23,6 +24,19 @@ public class OwnerHome extends AppCompatActivity {
                 // Launching create new product activity
                 Intent i = new Intent(getApplicationContext(),
                         AddPet.class);
+                startActivity(i);
+
+            }
+        });
+
+        // add pet click event
+        btnNewPet.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // Launching create new product activity
+                Intent i = new Intent(getApplicationContext(),
+                        UserHome.class);
                 startActivity(i);
 
             }

@@ -11,6 +11,14 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="#002b5c">
 
+    <Button
+        android:id="@+id/btnGoToOwnerHome"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Go To Owner Home"
+        android:textSize="14dp"
+        android:layout_marginLeft="180dip"/>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
