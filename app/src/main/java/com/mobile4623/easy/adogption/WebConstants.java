@@ -8,7 +8,7 @@ public class WebConstants {
         public static final String SERVER_ADDR = "http://csce.uark.edu/~gachen/";
     //public static final String SERVER_ADDR = "http://weiser.csce.uark.edu/websrv/";
 
-        //public static final String URL_ALL_PRODUCTS = SERVER_ADDR + "get_all_products.php";
+        public static final String URL_ALL_PETS = SERVER_ADDR + "adogption_search_pet.php";
 
         //public static final String URL_PRODUCT_DETAILS = SERVER_ADDR + "get_product_details.php";
 
