@@ -14,6 +14,10 @@ public class PetAdapter extends BaseAdapter{
     LayoutInflater layoutInflater;
 
 
+    public PetAdapter(){
+
+    }
+
     public PetAdapter(String[] data, Context context) {
         super();
         this.data = data;
