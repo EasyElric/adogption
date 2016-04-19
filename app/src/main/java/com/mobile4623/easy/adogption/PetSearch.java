@@ -32,34 +32,38 @@ public class PetSearch extends Activity {
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
 
-    ArrayList<HashMap<String, String>> productsList;
+    ArrayList<HashMap<String, String>> petArrayList = new ArrayList<HashMap<String, String>>();
+    ListView petList;
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_PRODUCTS = "products";
-    private static final String TAG_PID = "pid";
-    private static final String TAG_NAME = "name";
+    private static final String TAG_PETS = "pets";
+    private static final String TAG_NAME = "Name";
+    private static final String TAG_AGE = "Age";
+    private static final String TAG_ANIMAL = "Animal";
+    private static final String TAG_BREED = "Breed";
+    private static final String TAG_LOCATION = "Location";
+    private static final String TAG_DESCRIPTION = "Description";
+
 
     // products JSONArray
-    JSONArray products = null;
+    JSONArray pets = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_pet);
 
+        // Loading products in Background Thread
+        new LoadAllPets().execute();
 
-        //set adapter TO DO NOT oncreate. on execute
-        ListView petList = (ListView) findViewById(R.id.list_pet_search);
-        PetAdapter petAdapter = new PetAdapter();
-        petList.setAdapter(petAdapter);
     }
 
 
     /**
      * Background Async Task to Load all product by making HTTP Request
      * */
-    class LoadAllProducts extends AsyncTask<String, String, Void> {
+    class LoadAllPets extends AsyncTask<String, String, Void> {
 
         /**
          * Before starting background thread Show Progress Dialog
@@ -99,25 +103,35 @@ public class PetSearch extends Activity {
                 if (success == 1) {
                     // products found
                     // Getting Array of Products
-                    products = json.getJSONArray(TAG_PRODUCTS);
+                    pets = json.getJSONArray(TAG_PETS);
 
                     // looping through All Products
-                    for (int i = 0; i < products.length(); i++) {
-                        JSONObject c = products.getJSONObject(i);
+                    for (int i = 0; i < pets.length(); i++) {
+                        JSONObject c = pets.getJSONObject(i);
 
                         // Storing each json item in variable
-                        String id = c.getString(TAG_PID);
                         String name = c.getString(TAG_NAME);
+                        String age = c.getString(TAG_AGE);
+                        String animal = c.getString(TAG_ANIMAL);
+                        String breed = c.getString(TAG_BREED);
+                        String location = c.getString(TAG_LOCATION);
+                        String description = c.getString(TAG_DESCRIPTION);
+
 
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
 
                         // adding each child node to HashMap key => value
-                        map.put(TAG_PID, id);
                         map.put(TAG_NAME, name);
+                        map.put(TAG_AGE, age);
+                        map.put(TAG_ANIMAL, animal);
+                        map.put(TAG_BREED, breed);
+                        map.put(TAG_LOCATION, location);
+                        map.put(TAG_DESCRIPTION, description);
+
 
                         // adding HashList to ArrayList
-                        productsList.add(map);
+                        petArrayList.add(map);
                     }
                 } else {
                     // no products found
@@ -139,16 +153,16 @@ public class PetSearch extends Activity {
             // updating UI from Background Thread
             runOnUiThread(new Runnable() {
                 public void run() {
+
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-                    ListAdapter adapter = new SimpleAdapter(
-                            PetSearch.this, productsList,
-                            R.layout.list_row_pet, new String[] { TAG_PID,
-                            TAG_NAME },
-                            new int[] { R.id.pid, R.id.name });
-                    // updating listview
-                    setListAdapter(adapter);
+
+                    petList = (ListView) findViewById(R.id.list_pet_search);
+                    PetAdapter petAdapter = new PetAdapter(PetSearch.this,petArrayList);
+                    petList.setAdapter(petAdapter);
+
+
                 }
             });
 

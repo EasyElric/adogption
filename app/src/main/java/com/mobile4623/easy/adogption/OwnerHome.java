@@ -30,7 +30,7 @@ public class OwnerHome extends AppCompatActivity {
         });
 
         // add pet click event
-        btnNewPet.setOnClickListener(new View.OnClickListener() {
+        btnGoToUserHome.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {

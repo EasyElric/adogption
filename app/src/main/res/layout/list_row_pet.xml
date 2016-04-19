@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/list_selector"
     android:orientation="horizontal"
@@ -42,7 +42,7 @@
         android:paddingBottom ="10dip"
         android:text="Name"
         android:textColor="#040404"
-        android:textSize="40dip"
+        android:textSize="22dip"
         android:textStyle="bold"
         android:typeface="sans" />
     <!-- Animal-->
