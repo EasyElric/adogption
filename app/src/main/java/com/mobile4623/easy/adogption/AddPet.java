@@ -71,9 +71,6 @@ public class AddPet extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         animalType.setAdapter(adapter);
 
-
-
-
         // save button click event
         btnAdd.setOnClickListener(new View.OnClickListener() {
 
@@ -113,7 +110,7 @@ public class AddPet extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(AddPet.this);
-            pDialog.setMessage("Saving product ...");
+            pDialog.setMessage("Saving pet ...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -159,24 +156,6 @@ public class AddPet extends Activity {
             }catch (Exception e) {
                 Log.e("Buffer Error", "Error converting result " + e.toString());
             }
-
-
-            // check json success tag
-//            try {
-//                int success = json.getInt(TAG_SUCCESS);
-//
-//                if (success == 1) {
-//                    // successfully updated
-//                    Intent i = getIntent();
-//                    // send result code 100 to notify about product update
-//                    setResult(100, i);
-//                    finish();
-//                } else {
-//                    // failed to update product
-//                }
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
 
             return null;
         }
