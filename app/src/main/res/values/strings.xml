@@ -8,10 +8,16 @@
     <string name="favs_btn">Favorites</string>
     <string name="requests_btn">View Requests</string>
     <string name="manage_pets_btn">Manage Pets</string>
+    <string name="user_name">Username</string>
+    <string name="password">Password</string>
     <string name="add_pet_btn">Add Pet</string>
     <string-array name="animal_type_array">
         <item>Dog</item>
         <item>Cat</item>
+    </string-array>
+    <string-array name="account_type_array">
+        <item>User</item>
+        <item>Owner</item>
     </string-array>
 
 </resources>
