@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mobile4623.easy.adogption">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -9,10 +10,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
         <activity android:name=".LoginScreen">
             <intent-filter>
@@ -30,14 +27,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mobile4623.easy.adogption.LoginScreen" />
         </activity>
-        <activity android:name=".OwnerHome"></activity>
-        <activity android:name=".AddPet"></activity>
-        <activity android:name=".PetSearch"></activity>
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
+        <activity android:name=".OwnerHome" />
+        <activity android:name=".AddPet" />
+        <activity android:name=".PetSearch" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".CreateAccount"></activity>
     </application>
 
 </manifest>

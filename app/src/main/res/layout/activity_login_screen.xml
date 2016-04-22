@@ -66,11 +66,13 @@
                 android:layout_weight=".1"/>
 
             <Button
-                android:id="@+id/facebookLogin"
+                android:id="@+id/createAcct"
                 android:layout_width="0dp"
                 android:layout_weight=".3"
                 android:layout_height="match_parent"
-                android:text="@string/facebook_login"/>
+                android:text="@string/create_acct"
+                android:background="@drawable/button_rounded"
+                android:onClick="onCreateAccount"/>
 
             <Space
                 android:layout_height="match_parent"

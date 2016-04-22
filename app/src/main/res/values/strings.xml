@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Adogption</string>
-    <string name="facebook_login">FACEBOOK</string>
+    <string name="create_acct">Create Account</string>
     <string name="loginBtn">LOGIN</string>
     <string name="title_activity_user_home">UserHome</string>
     <string name="search_btn">Search</string>
@@ -9,7 +9,6 @@
     <string name="requests_btn">View Requests</string>
     <string name="manage_pets_btn">Manage Pets</string>
     <string name="add_pet_btn">Add Pet</string>
-    <string name="facebook_app_id">697707400369083</string>
     <string-array name="animal_type_array">
         <item>Dog</item>
         <item>Cat</item>
