@@ -3,6 +3,7 @@ package com.mobile4623.easy.adogption;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,7 @@ public class AddPet extends Activity {
     EditText txtBreed;
     EditText txtDescription;
     EditText txtLocation;
+    String account;
 
     Button btnAdd;
     //Button btnDelete;
@@ -53,6 +55,8 @@ public class AddPet extends Activity {
     private static final String TAG_AGE = "age";
     private static final String TAG_LOCATION = "location";
     private static final String TAG_DESCRIPTION = "description";
+    private static final String TAG_LOGIN = "login";
+    private static final String TAG_ACCOUNT = "account";
 
     private int updateStatus = 0;
     private JSONObject mJson;
@@ -61,6 +65,10 @@ public class AddPet extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pet);
+
+        SharedPreferences preferences = getSharedPreferences(TAG_LOGIN, MODE_PRIVATE);
+        account = preferences.getString("login", "defaultStringIfNothingFound");
+
 
         //add pet button
         btnAdd = (Button) findViewById(R.id.btnAdd);
@@ -93,7 +101,7 @@ public class AddPet extends Activity {
 
                 // starting background task to update product
 
-                new onAddPet().execute(name,age,animal, breed, location, description);
+                new onAddPet().execute(name,age,animal, breed, location, description, account);
             }
         });
     }
@@ -132,7 +140,7 @@ public class AddPet extends Activity {
 
 
             //test
-            Log.e("Name", name);
+            Log.e("account", account);
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -142,6 +150,7 @@ public class AddPet extends Activity {
             params.add(new BasicNameValuePair(TAG_ANIMAL, animal));
             params.add(new BasicNameValuePair(TAG_LOCATION, location));
             params.add(new BasicNameValuePair(TAG_DESCRIPTION, description));
+            params.add(new BasicNameValuePair(TAG_ACCOUNT,account));
 
             // sending modified data through http request
             // Notice that update product url accepts POST method

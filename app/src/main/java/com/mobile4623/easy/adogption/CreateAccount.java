@@ -2,6 +2,7 @@ package com.mobile4623.easy.adogption;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,11 @@ public class CreateAccount extends AppCompatActivity {
     EditText txtUsername;
     EditText txtPassword;
     Spinner txtType;
+    String user;
+    String pass;
+    String type;
+    String success;
+    String typeRaw;
 
     private ProgressDialog pDialog;
 
@@ -39,6 +45,7 @@ public class CreateAccount extends AppCompatActivity {
     private static final String TAG_TYPE= "type";
     private static final String TAG_TYPEOWNER= "2";
     private static final String TAG_TYPEUSER= "1";
+    private static final String TAG_LOGIN= "login";
 
 
 
@@ -91,6 +98,14 @@ public class CreateAccount extends AppCompatActivity {
      * */
     class onCreateAccount extends AsyncTask<String, String, String> {
 
+        //constructor
+//        public CreateAccount activity;
+//
+//        public onCreateAccount (CreateAccount a)
+//        {
+//            this.activity = a;
+//        }
+
         /**
          * Before starting background thread Show Progress Dialog
          */
@@ -110,13 +125,13 @@ public class CreateAccount extends AppCompatActivity {
          */
         protected String doInBackground(String... args) {
 
-            String user = args[0];
-            String pass = args[1];
-            String tempType = args[2];
-            String type ="";
-            if(tempType.equals("Owner")){
+            user = args[0];
+            pass = args[1];
+            typeRaw = args[2];
+            type ="";
+            if(typeRaw.equals("Owner")){
                 type = TAG_TYPEOWNER;
-            }else if(tempType.equals("User")){
+            }else if(typeRaw.equals("User")){
                 type = TAG_TYPEUSER;
             }
 
@@ -134,32 +149,12 @@ public class CreateAccount extends AppCompatActivity {
             // Notice that update product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(
                     WebConstants.URL_CREATE_ACCOUNT, "POST", params);
-
-
-            //GO TO HOME if successully created account
-
-
-            //if not successful, success = 0, display username already taken
-            // IMPORTANT
-
-
             try {
-                Log.i("JSON Parser", json.getString(TAG_SUCCESS));
-//                Log.i("JSON Parser", getString(success));
-//                if(success == 1){
-//                    if(type.equals("Owner")){
-//                        Intent i = new Intent(getApplicationContext(),
-//                                OwnerHome.class);
-//                        startActivity(i);
-//                    }else if(type.equals("User")){
-//                        Intent i = new Intent(getApplicationContext(),
-//                                UserHome.class);
-//                        startActivity(i);
-//                    }
-//                }
-            } catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
+                success = json.getString(TAG_SUCCESS);
+            }catch(Exception e){
+                Log.e("Success error", "Error converting result " + e.toString());
             }
+
 
             return null;
         }
@@ -170,6 +165,43 @@ public class CreateAccount extends AppCompatActivity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once product uupdated
             pDialog.dismiss();
+            CreateAccount.this.postCreate();
         }
+    }
+
+    //call after async
+    public void postCreate(){
+        // if not successful, success = 0, display username already taken
+        //
+        try {
+            if (success.equals("0")) {
+                Toast.makeText(getApplicationContext(), "Username already taken",
+                        Toast.LENGTH_SHORT).show();
+            }else{
+
+                // save login to shared preference
+                SharedPreferences.Editor editor = getSharedPreferences(TAG_LOGIN, MODE_PRIVATE).edit();
+                editor.putString("login", user);
+                editor.apply();
+
+                Toast.makeText(getApplicationContext(), "Account Created",
+                        Toast.LENGTH_SHORT).show();
+
+                if(typeRaw.equals("Owner")){
+                    Intent i = new Intent(getApplicationContext(),
+                            OwnerHome.class);
+                    Log.e("Success error", "inside if owner");
+                    startActivity(i);
+                }else if(typeRaw.equals("User")){
+                    Intent i = new Intent(getApplicationContext(),
+                            UserHome.class);
+                    Log.e("Success error", "inside if user");
+                    startActivity(i);
+                }
+            }
+        }catch(Exception e){
+            Log.e("Success error", "Error converting result " + e.toString());
+        }
+
     }
 }
