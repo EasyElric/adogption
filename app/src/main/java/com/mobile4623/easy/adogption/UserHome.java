@@ -18,6 +18,7 @@ public class UserHome extends AppCompatActivity {
 
         Button btnGoToOwnerHome = (Button) findViewById(R.id.btnGoToOwnerHome);
         Button btnGoToSearch = (Button) findViewById(R.id.search_button);
+        Button btnGoToProfile = (Button) findViewById(R.id.profile_button);
 
         // add pet click event
         btnGoToOwnerHome.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +41,19 @@ public class UserHome extends AppCompatActivity {
                 // Launching create new product activity
                 Intent i = new Intent(getApplicationContext(),
                         PetSearch.class);
+                startActivity(i);
+
+            }
+        });
+
+        // profile click event
+        btnGoToProfile.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // Launching create new product activity
+                Intent i = new Intent(getApplicationContext(),
+                        EditProfile.class);
                 startActivity(i);
 
             }

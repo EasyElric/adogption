@@ -58,6 +58,8 @@ public class EditProfile extends Activity {
         txtLocation = (EditText) findViewById(R.id.edit_user_location);
         txtDescription = (EditText) findViewById(R.id.edit_user_desc);
 
+        btnSave = (Button) findViewById(R.id.btn_profile_save);
+
         SharedPreferences preferences = getSharedPreferences(TAG_LOGIN, MODE_PRIVATE);
         account = preferences.getString("login", "defaultStringIfNothingFound");
 
@@ -184,7 +186,7 @@ public class EditProfile extends Activity {
             }catch (Exception e) {
                 Log.e("Buffer Error", "Error converting result " + e.toString());
             }
-            
+
             return null;
         }
 
