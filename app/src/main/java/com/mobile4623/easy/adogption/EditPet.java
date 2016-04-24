@@ -1,6 +1,7 @@
 package com.mobile4623.easy.adogption;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -22,16 +24,16 @@ import java.util.List;
 public class EditPet extends AppCompatActivity {
     EditText txtName;
     EditText txtAge;
-    Spinner txtAnimal;
+    TextView txtAnimal;
     EditText txtBreed;
     EditText txtDescription;
     EditText txtLocation;
     String account;
 
-    Button btnAdd;
-    //Button btnDelete;
+    Button btnSave;
+    Button btnCancel;
 
-    String pid;
+    String pid; // pet id
     // Progress Dialog
     private ProgressDialog pDialog;
 
@@ -55,45 +57,59 @@ public class EditPet extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_pet);
+        setContentView(R.layout.activity_edit_pet);
 
         SharedPreferences preferences = getSharedPreferences(TAG_LOGIN, MODE_PRIVATE);
         account = preferences.getString("login", "defaultStringIfNothingFound");
 
+        Intent intent = getIntent();
+
+        Pet pet = (Pet)intent.getSerializableExtra(TAG_NAME);
+
+        txtName = (EditText) findViewById(R.id.edit_name);
+        txtAge = (EditText) findViewById(R.id.edit_age);
+        txtAnimal = (TextView) findViewById(R.id.edit_animal);
+        txtBreed = (EditText) findViewById(R.id.edit_breed);
+        txtLocation = (EditText) findViewById(R.id.edit_location);
+        txtDescription = (EditText) findViewById(R.id.edit_description);
+
+        txtName.setText(pet.getName());
+        txtAge.setText(pet.getAge());
+        txtAnimal.setText(pet.getAnimal());
+        txtBreed.setText(pet.getBreed());
+        txtLocation.setText(pet.getLocation());
+        txtDescription.setText(pet.getDescription());
+        pid = pet.getPetID();
 
         //add pet button
-        btnAdd = (Button) findViewById(R.id.btnAdd);
-
-        Spinner animalType = (Spinner) findViewById(R.id.add_animal);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.animal_type_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        animalType.setAdapter(adapter);
+        btnSave = (Button) findViewById(R.id.btnSave);
+        btnCancel = (Button) findViewById(R.id.btnCancel);
 
         // save button click event
-        btnAdd.setOnClickListener(new View.OnClickListener() {
+        btnSave.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
 
-                txtName = (EditText) findViewById(R.id.add_name);
-                txtAge = (EditText) findViewById(R.id.add_age);
-                txtAnimal = (Spinner) findViewById(R.id.add_animal);
-                txtBreed = (EditText) findViewById(R.id.add_breed);
-                txtLocation = (EditText) findViewById(R.id.add_location);
-                txtDescription = (EditText) findViewById(R.id.add_description);
-
                 String name = txtName.getText().toString();
                 String age = txtAge.getText().toString();
-                String animal = txtAnimal.getSelectedItem().toString();
+                String animal = txtAnimal.getText().toString();
                 String breed = txtBreed.getText().toString();
                 String location = txtLocation.getText().toString();
                 String description = txtDescription.getText().toString();
 
                 // starting background task to update product
 
-                new onAddPet().execute(name,age,animal, breed, location, description, account);
+                new onAddPet().execute(name,age,animal, breed, location, description, account, pid);
             }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View arg0) {
+                finish();
+             }
+
         });
     }
 
@@ -146,7 +162,7 @@ public class EditPet extends AppCompatActivity {
             // sending modified data through http request
             // Notice that update product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(
-                    WebConstants.URL_CREATE_PET, "POST", params);
+                    WebConstants.URL_EDIT_PET, "POST", params);
 
 
             //debug test

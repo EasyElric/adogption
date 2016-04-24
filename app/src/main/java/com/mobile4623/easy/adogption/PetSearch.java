@@ -32,7 +32,7 @@ public class PetSearch extends Activity {
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
 
-    ArrayList<HashMap<String, String>> petArrayList = new ArrayList<HashMap<String, String>>();
+    ArrayList<Pet> petArrayList = new ArrayList<>();
     ListView petList;
 
     // JSON Node names
@@ -44,6 +44,8 @@ public class PetSearch extends Activity {
     private static final String TAG_BREED = "Breed";
     private static final String TAG_LOCATION = "Location";
     private static final String TAG_DESCRIPTION = "Description";
+    private static final String TAG_ID = "ID";
+
 
 
     // products JSONArray
@@ -108,30 +110,27 @@ public class PetSearch extends Activity {
                     // looping through All Products
                     for (int i = 0; i < pets.length(); i++) {
                         JSONObject c = pets.getJSONObject(i);
+                        Pet pet = new Pet(); // Create pet
 
-                        // Storing each json item in variable
                         String name = c.getString(TAG_NAME);
                         String age = c.getString(TAG_AGE);
                         String animal = c.getString(TAG_ANIMAL);
                         String breed = c.getString(TAG_BREED);
                         String location = c.getString(TAG_LOCATION);
-                        String description = c.getString(TAG_DESCRIPTION);
+                        String desc = c.getString(TAG_DESCRIPTION);
+                        String pID = c.getString(TAG_ID);
 
 
-                        // creating new HashMap
-                        HashMap<String, String> map = new HashMap<String, String>();
+                        pet.setName(name); // Storing each json item in the pet
+                        pet.setAge(age);
+                        pet.setAnimal(animal);
+                        pet.setBreed(breed);
+                        pet.setLocation(location);
+                        pet.setDescription(desc);
+                        pet.setPetID(pID);
 
-                        // adding each child node to HashMap key => value
-                        map.put(TAG_NAME, name);
-                        map.put(TAG_AGE, age);
-                        map.put(TAG_ANIMAL, animal);
-                        map.put(TAG_BREED, breed);
-                        map.put(TAG_LOCATION, location);
-                        map.put(TAG_DESCRIPTION, description);
-
-
-                        // adding HashList to ArrayList
-                        petArrayList.add(map);
+                        // adding pet to ArrayList
+                        petArrayList.add(pet);
                     }
                 } else {
                     // no products found

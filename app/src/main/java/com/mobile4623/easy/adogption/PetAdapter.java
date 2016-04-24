@@ -1,30 +1,24 @@
 package com.mobile4623.easy.adogption;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewDebug;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class PetAdapter extends BaseAdapter{
 
-    ArrayList<HashMap<String, String>> data;
+    ArrayList<Pet> data;
     Context context;
     LayoutInflater layoutInflater;
 
-    private static final String TAG_NAME = "Name";
-    private static final String TAG_AGE = "Age";
-    private static final String TAG_ANIMAL = "Animal";
-    private static final String TAG_BREED = "Breed";
-    private static final String TAG_LOCATION = "Location";
-    private static final String TAG_DESCRIPTION = "Description";
 
-
-    public PetAdapter( Context context, ArrayList<HashMap<String, String>> data ) {
+    public PetAdapter( Context context, ArrayList<Pet> data ) {
         super();
         this.data = data;
         this.context = context;
@@ -62,12 +56,21 @@ public class PetAdapter extends BaseAdapter{
         TextView txtLocation=(TextView)convertView.findViewById(R.id.petRowLocation);
         TextView txtDesc=(TextView)convertView.findViewById(R.id.petRowDesc);
 
-        txtName.setText(data.get(position).get(TAG_NAME));
-        txtAge.setText(data.get(position).get(TAG_AGE));
-        txtBreed.setText(data.get(position).get(TAG_BREED));
-        txtAnimal.setText(data.get(position).get(TAG_ANIMAL));
-        txtLocation.setText(data.get(position).get(TAG_LOCATION));
-        txtDesc.setText(data.get(position).get(TAG_DESCRIPTION));
+        Pet pet = data.get(position);
+        String get = data.get(position).toString();
+        String pos = String.valueOf(position);
+        Log.d("PetAdapter", get);
+        Log.d("PetAdapter", pos);
+        //Log.d("PetAdapter", pet.getName());
+        Log.d("PetAdapter", "Age:" + pet.getAge());
+        //Log.d("PetAdapter", pet.getDescription());
+
+        txtName.setText(pet.getName());
+        txtAge.setText(pet.getAge());
+        txtBreed.setText(pet.getBreed());
+        txtAnimal.setText(pet.getAnimal());
+        txtLocation.setText(pet.getLocation());
+        txtDesc.setText(pet.getDescription());
 
         return convertView;
     }

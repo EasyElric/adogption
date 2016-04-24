@@ -41,7 +41,7 @@ public class ManagePets extends Activity {
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
 
-    ArrayList<HashMap<String, String>> petArrayList = new ArrayList<HashMap<String, String>>();
+    ArrayList<Pet> petArrayList = new ArrayList<>();
     ListView petList;
     PetAdapter petAdapter;
 
@@ -69,14 +69,15 @@ public class ManagePets extends Activity {
 
 
         petList = (ListView) findViewById(R.id.list_manage_pets);
-        petAdapter = new PetAdapter(ManagePets.this,petArrayList);
+        petAdapter = new PetAdapter(ManagePets.this, petArrayList);
         petList.setAdapter(petAdapter);
 
 
         // Get username from shared preferences
-        SharedPreferences prefs = this.getSharedPreferences(
+        SharedPreferences prefs = getSharedPreferences(
                 TAG_LOGIN, MODE_PRIVATE);
-        user = prefs.getString(TAG_USERNAME, "");
+        user = prefs.getString("login", "defaultStringIfNothingFound");
+
 
         // Loading products in Background Thread
         new LoadAllPets().execute(user);
@@ -89,19 +90,7 @@ public class ManagePets extends Activity {
                 Intent intent = new Intent(getApplicationContext(), EditPet.class);
 
                 // build the intent
-                String name = pet.getName(); // add the name
-                String breed = pet.getBreed(); // add the breed
-                String animal = pet.getAnimal(); // add the animal
-                String age = pet.getAge(); // add the content
-                //String picture = pet.getPicture(); // add the picture
-                String description = pet.getDescription(); // add the description
-                String location = pet.getLocation(); // add the location
-                intent.putExtra(TAG_NAME, name);
-                intent.putExtra(TAG_BREED, breed);
-                intent.putExtra(TAG_ANIMAL, animal);
-                intent.putExtra(TAG_AGE, age);
-                intent.putExtra(TAG_DESCRIPTION, description);
-                intent.putExtra(TAG_LOCATION, location);
+                intent.putExtra(TAG_NAME, pet);
                 startActivity(intent);
             }
         });
@@ -162,30 +151,15 @@ public class ManagePets extends Activity {
                     // looping through All Pets
                     for (int i = 0; i < pets.length(); i++) {
                         JSONObject c = pets.getJSONObject(i);
-
-                        // Storing each json item in variable
-                        String name = c.getString(TAG_NAME);
-                        String age = c.getString(TAG_AGE);
-                        String animal = c.getString(TAG_ANIMAL);
-                        String breed = c.getString(TAG_BREED);
-                        String location = c.getString(TAG_LOCATION);
-                        String description = c.getString(TAG_DESCRIPTION);
-
-
-                        // creating new HashMap
-                        HashMap<String, String> map = new HashMap<String, String>();
-
-                        // adding each child node to HashMap key => value
-                        map.put(TAG_NAME, name);
-                        map.put(TAG_AGE, age);
-                        map.put(TAG_ANIMAL, animal);
-                        map.put(TAG_BREED, breed);
-                        map.put(TAG_LOCATION, location);
-                        map.put(TAG_DESCRIPTION, description);
-
-
+                        Pet pet = new Pet(); // Create pet
+                        pet.setName(c.getString(TAG_NAME)); // Storing each json item in the pet
+                        pet.setAge(c.getString(TAG_AGE));
+                        pet.setAnimal(c.getString(TAG_ANIMAL));
+                        pet.setBreed(c.getString(TAG_BREED));
+                        pet.setLocation(c.getString(TAG_LOCATION));
+                        pet.setDescription(c.getString(TAG_DESCRIPTION));
                         // adding HashList to ArrayList
-                        petArrayList.add(map);
+                        petArrayList.add(pet);
                     }
                 } else {
                     // no products found
