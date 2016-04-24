@@ -23,7 +23,6 @@ import java.util.List;
 
 public class CreateAccount extends AppCompatActivity {
 
-    Button btnAdd;
     EditText txtUsername;
     EditText txtPassword;
     Spinner txtType;
@@ -121,7 +120,7 @@ public class CreateAccount extends AppCompatActivity {
         }
 
         /**
-         * Saving product
+         * Saving account
          */
         protected String doInBackground(String... args) {
 
@@ -146,7 +145,6 @@ public class CreateAccount extends AppCompatActivity {
             params.add(new BasicNameValuePair(TAG_TYPE, type));
 
             // sending modified data through http request
-            // Notice that update product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(
                     WebConstants.URL_CREATE_ACCOUNT, "POST", params);
             try {

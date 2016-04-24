@@ -2,15 +2,20 @@ package com.mobile4623.easy.adogption;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,11 +25,14 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Guille on 4/15/2016.
+ * Created by FG
  */
-public class PetSearch extends Activity {
 
-    private static final String TAG = "PetSearchActivity";
+public class ManagePets extends Activity {
+
+    private static final String TAG = "ManagePetsActivity";
+    private static final String TAG_USERNAME = "username";
+    private static final String TAG_LOGIN = "login";
 
     // Progress Dialog
     private ProgressDialog pDialog;
@@ -34,6 +42,7 @@ public class PetSearch extends Activity {
 
     ArrayList<HashMap<String, String>> petArrayList = new ArrayList<HashMap<String, String>>();
     ListView petList;
+    PetAdapter petAdapter;
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -45,6 +54,8 @@ public class PetSearch extends Activity {
     private static final String TAG_LOCATION = "Location";
     private static final String TAG_DESCRIPTION = "Description";
 
+    public String user = "";
+
 
     // products JSONArray
     JSONArray pets = null;
@@ -52,16 +63,51 @@ public class PetSearch extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_pet);
+        setContentView(R.layout.activity_manage_pets);
 
         // Loading products in Background Thread
         new LoadAllPets().execute();
+
+        petList = (ListView) findViewById(R.id.list_manage_pets);
+        petAdapter = new PetAdapter(ManagePets.this,petArrayList);
+        petList.setAdapter(petAdapter);
+
+
+        // Get username from shared preferences
+        SharedPreferences prefs = this.getSharedPreferences(
+                TAG_LOGIN, MODE_PRIVATE);
+        user = prefs.getString(TAG_USERNAME, "");
+
+        // ClickListener for each task item
+        petList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Pet pet = (Pet) parent.getAdapter().getItem(position);
+                Intent intent = new Intent(getApplicationContext(), EditPet.class);
+
+                // build the intent
+                String name = pet.getName(); // add the name
+                String breed = pet.getBreed(); // add the breed
+                String animal = pet.getAnimal(); // add the animal
+                String age = pet.getAge(); // add the content
+                //String picture = pet.getPicture(); // add the picture
+                String description = pet.getDescription(); // add the description
+                String location = pet.getLocation(); // add the location
+                intent.putExtra(TAG_NAME, name);
+                intent.putExtra(TAG_BREED, breed);
+                intent.putExtra(TAG_ANIMAL, animal);
+                intent.putExtra(TAG_AGE, age);
+                intent.putExtra(TAG_DESCRIPTION, description);
+                intent.putExtra(TAG_LOCATION, location);
+                startActivity(intent);
+            }
+        });
 
     }
 
 
     /**
-     * Background Async Task to Load all product by making HTTP Request
+     * Background Async Task to Load all pets by making HTTP Request
      * */
     class LoadAllPets extends AsyncTask<String, String, Void> {
 
@@ -71,7 +117,7 @@ public class PetSearch extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(PetSearch.this);
+            pDialog = new ProgressDialog(ManagePets.this);
             pDialog.setMessage("Loading pets. Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
@@ -79,14 +125,15 @@ public class PetSearch extends Activity {
         }
 
         /**
-         * getting All products from url
+         * getting All pets from url
          * */
         protected Void doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair(TAG_USERNAME, user));
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(
-                    WebConstants.URL_ALL_PETS, "GET", params);
+                    WebConstants.URL_MANAGE_PETS, "POST", params);
 
             // Check your log cat for JSON response
             if(json == null) {
@@ -94,7 +141,7 @@ public class PetSearch extends Activity {
                 return null;
             }
 
-            Log.d("All Products: ", json.toString());
+            Log.d("All Pets: ", json.toString());
 
             try {
                 // Checking for SUCCESS TAG
@@ -105,7 +152,7 @@ public class PetSearch extends Activity {
                     // Getting Array of Products
                     pets = json.getJSONArray(TAG_PETS);
 
-                    // looping through All Products
+                    // looping through All Pets
                     for (int i = 0; i < pets.length(); i++) {
                         JSONObject c = pets.getJSONObject(i);
 
@@ -158,9 +205,9 @@ public class PetSearch extends Activity {
                      * Updating parsed JSON data into ListView
                      * */
 
-                    petList = (ListView) findViewById(R.id.list_pet_search);
-                    PetAdapter petAdapter = new PetAdapter(PetSearch.this,petArrayList);
-                    petList.setAdapter(petAdapter);
+                    petAdapter.notifyDataSetChanged();
+
+
 
 
                 }
