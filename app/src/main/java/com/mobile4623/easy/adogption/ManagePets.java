@@ -32,6 +32,7 @@ public class ManagePets extends Activity {
 
     private static final String TAG = "ManagePetsActivity";
     private static final String TAG_USERNAME = "username";
+    private static final String TAG_ACCOUNT = "account";
     private static final String TAG_LOGIN = "login";
 
     // Progress Dialog
@@ -65,8 +66,7 @@ public class ManagePets extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_pets);
 
-        // Loading products in Background Thread
-        new LoadAllPets().execute();
+
 
         petList = (ListView) findViewById(R.id.list_manage_pets);
         petAdapter = new PetAdapter(ManagePets.this,petArrayList);
@@ -77,6 +77,9 @@ public class ManagePets extends Activity {
         SharedPreferences prefs = this.getSharedPreferences(
                 TAG_LOGIN, MODE_PRIVATE);
         user = prefs.getString(TAG_USERNAME, "");
+
+        // Loading products in Background Thread
+        new LoadAllPets().execute(user);
 
         // ClickListener for each task item
         petList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -130,10 +133,14 @@ public class ManagePets extends Activity {
         protected Void doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair(TAG_USERNAME, user));
+            String username = args[0];
+            params.add(new BasicNameValuePair(TAG_ACCOUNT, username));
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(
                     WebConstants.URL_MANAGE_PETS, "POST", params);
+
+            Log.d(TAG, username);
+            Log.d(TAG, user);
 
             // Check your log cat for JSON response
             if(json == null) {

@@ -164,7 +164,7 @@ public class EditPet extends AppCompatActivity {
          * After completing background task Dismiss the progress dialog
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once product uupdated
+            // dismiss the dialog once product updated
             pDialog.dismiss();
         }
     }
