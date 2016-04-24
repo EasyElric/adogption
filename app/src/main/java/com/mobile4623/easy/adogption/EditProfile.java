@@ -65,9 +65,7 @@ public class EditProfile extends Activity {
 
         new LoadProfile().execute(account);
 
-        txtName.setText(editName);
-        txtLocation.setText(editLocation);
-        txtDescription.setText(editDesc);
+
 
         // save button click event
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +138,7 @@ public class EditProfile extends Activity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once product uupdated
             pDialog.dismiss();
+            postLoad();
         }
     }
 
@@ -197,6 +196,14 @@ public class EditProfile extends Activity {
             // dismiss the dialog once product uupdated
             pDialog.dismiss();
         }
+    }
+
+    void postLoad(){
+
+        txtName.setText(editName);
+        txtLocation.setText(editLocation);
+        txtDescription.setText(editDesc);
+
     }
 
 }
