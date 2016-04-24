@@ -15,6 +15,8 @@ public class WebConstants {
 
         public static final String URL_EDIT_PROFILE = SERVER_ADDR + "adogption_edit_profile.php";
 
+        public static final String URL_LOGIN = SERVER_ADDR + "adogption_login.php";
+
         public static final String URL_MANAGE_PETS = SERVER_ADDR + "adogption_manage_pet.php";
 
         public static final String URL_LOAD_EDIT_PROFILE = SERVER_ADDR + "adogption_load_edit_profile.php";

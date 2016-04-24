@@ -55,7 +55,7 @@ public class ManagePets extends Activity {
     private static final String TAG_LOCATION = "Location";
     private static final String TAG_DESCRIPTION = "Description";
 
-    public String user = "";
+    public String account;
 
 
     // products JSONArray
@@ -74,13 +74,11 @@ public class ManagePets extends Activity {
 
 
         // Get username from shared preferences
-        SharedPreferences prefs = getSharedPreferences(
-                TAG_LOGIN, MODE_PRIVATE);
-        user = prefs.getString("login", "defaultStringIfNothingFound");
-
+        SharedPreferences preferences = getSharedPreferences(TAG_LOGIN, MODE_PRIVATE);
+        account = preferences.getString("login", "defaultStringIfNothingFound");
 
         // Loading products in Background Thread
-        new LoadAllPets().execute(user);
+        new LoadAllPets().execute(account);
 
         // ClickListener for each task item
         petList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -123,13 +121,12 @@ public class ManagePets extends Activity {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             String username = args[0];
+            Log.d(TAG, username);
             params.add(new BasicNameValuePair(TAG_ACCOUNT, username));
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(
                     WebConstants.URL_MANAGE_PETS, "POST", params);
 
-            Log.d(TAG, username);
-            Log.d(TAG, user);
 
             // Check your log cat for JSON response
             if(json == null) {
