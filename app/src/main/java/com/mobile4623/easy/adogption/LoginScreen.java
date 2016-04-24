@@ -81,7 +81,7 @@ public class LoginScreen extends AppCompatActivity {
                     if (user.isEmpty()) {
                         Toast.makeText(getApplicationContext(), "Please enter a username", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Please enter a a password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Please enter a password", Toast.LENGTH_SHORT).show();
                     }
                 }
 
