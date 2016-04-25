@@ -50,7 +50,7 @@ public class EditPet extends AppCompatActivity {
     private static final String TAG_DESCRIPTION = "description";
     private static final String TAG_LOGIN = "login";
     private static final String TAG_ACCOUNT = "account";
-    private static final String TAG_ID = "ID";
+    private static final String TAG_ID = "id";
 
 
     private int updateStatus = 0;
@@ -103,16 +103,15 @@ public class EditPet extends AppCompatActivity {
 
                 // starting background task to update product
 
-                new onAddPet().execute(name,age,animal, breed, location, description, account, pid);
+                new onAddPet().execute(name, age, animal, breed, location, description, pid);
 
-                finish();
             }
         });
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View arg0) {
-                finish();
+                 goBack();
              }
 
         });
@@ -149,7 +148,11 @@ public class EditPet extends AppCompatActivity {
             String breed = args[3];
             String location = args[4];
             String description = args[5];
+            String pid = args[6];
 
+            Log.i("debug values", name);
+            Log.i("debug values", age);
+            Log.i("debug values", pid);
 
             //test
             Log.e("account", account);
@@ -163,7 +166,6 @@ public class EditPet extends AppCompatActivity {
             params.add(new BasicNameValuePair(TAG_ANIMAL, animal));
             params.add(new BasicNameValuePair(TAG_LOCATION, location));
             params.add(new BasicNameValuePair(TAG_DESCRIPTION, description));
-            params.add(new BasicNameValuePair(TAG_ACCOUNT,account));
 
             // sending modified data through http request
             // Notice that update product url accepts POST method
@@ -188,6 +190,13 @@ public class EditPet extends AppCompatActivity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once product updated
             pDialog.dismiss();
+            EditPet.this.goBack();
         }
+    }
+
+    public void goBack(){
+        Intent i = new Intent(getApplicationContext(),
+                ManagePets.class);
+        startActivity(i);
     }
 }

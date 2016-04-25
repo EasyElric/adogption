@@ -90,17 +90,7 @@ public class ManagePets extends Activity {
             }
         });
     }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-
-        // Loading products in Background Thread
-        new LoadAllPets().execute(account);
-
-    }
-
-
+    
     /**
      * Background Async Task to Load all pets by making HTTP Request
      * */
