@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -38,7 +39,7 @@ public class AddPet extends Activity {
     String account;
 
     Button btnAdd;
-    //Button btnDelete;
+    Button btnCancel;
 
     String pid;
     // Progress Dialog
@@ -72,6 +73,7 @@ public class AddPet extends Activity {
 
         //add pet button
         btnAdd = (Button) findViewById(R.id.btnAdd);
+        btnCancel = (Button) findViewById(R.id.btnCancel);
 
         Spinner animalType = (Spinner) findViewById(R.id.add_animal);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -103,6 +105,17 @@ public class AddPet extends Activity {
 
                 new onAddPet().execute(name,age,animal, breed, location, description, account);
             }
+        });
+
+        //cancel button
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent i = new Intent(getApplicationContext(),
+                        OwnerHome.class);
+                startActivity(i);
+            }
+
         });
     }
 
