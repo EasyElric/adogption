@@ -1,10 +1,8 @@
 package com.mobile4623.easy.adogption;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewDebug;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
@@ -34,13 +32,14 @@ public class PetAdapter extends BaseAdapter{
     @Override
     public Object getItem(int position) {
 
-        return null;
+        return data.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-
-        return position;
+        String id = data.get(position).getPetID();
+        long itemID = Long.parseLong(id);
+        return itemID;
     }
 
     @Override
@@ -57,13 +56,6 @@ public class PetAdapter extends BaseAdapter{
         TextView txtDesc=(TextView)convertView.findViewById(R.id.petRowDesc);
 
         Pet pet = data.get(position);
-        String get = data.get(position).toString();
-        String pos = String.valueOf(position);
-        Log.d("PetAdapter", get);
-        Log.d("PetAdapter", pos);
-        //Log.d("PetAdapter", pet.getName());
-        Log.d("PetAdapter", "Age:" + pet.getAge());
-        //Log.d("PetAdapter", pet.getDescription());
 
         txtName.setText(pet.getName());
         txtAge.setText(pet.getAge());

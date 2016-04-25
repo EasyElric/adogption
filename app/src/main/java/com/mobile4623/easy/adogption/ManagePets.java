@@ -2,7 +2,6 @@ package com.mobile4623.easy.adogption;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -10,9 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -21,7 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -48,12 +44,13 @@ public class ManagePets extends Activity {
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PETS = "pets";
-    private static final String TAG_NAME = "Name";
+    public static final String TAG_NAME = "Name";
     private static final String TAG_AGE = "Age";
     private static final String TAG_ANIMAL = "Animal";
     private static final String TAG_BREED = "Breed";
     private static final String TAG_LOCATION = "Location";
     private static final String TAG_DESCRIPTION = "Description";
+    private static final String TAG_ID = "ID";
 
     public String account;
 
@@ -92,6 +89,14 @@ public class ManagePets extends Activity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        // Loading products in Background Thread
+        new LoadAllPets().execute(account);
 
     }
 
@@ -155,6 +160,7 @@ public class ManagePets extends Activity {
                         pet.setBreed(c.getString(TAG_BREED));
                         pet.setLocation(c.getString(TAG_LOCATION));
                         pet.setDescription(c.getString(TAG_DESCRIPTION));
+                        pet.setPetID(c.getString(TAG_ID));
                         // adding HashList to ArrayList
                         petArrayList.add(pet);
                     }

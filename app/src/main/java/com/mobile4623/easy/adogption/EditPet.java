@@ -50,6 +50,8 @@ public class EditPet extends AppCompatActivity {
     private static final String TAG_DESCRIPTION = "description";
     private static final String TAG_LOGIN = "login";
     private static final String TAG_ACCOUNT = "account";
+    private static final String TAG_ID = "ID";
+
 
     private int updateStatus = 0;
     private JSONObject mJson;
@@ -64,7 +66,8 @@ public class EditPet extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        Pet pet = (Pet)intent.getSerializableExtra(TAG_NAME);
+        Pet pet = (Pet)intent.getParcelableExtra(ManagePets.TAG_NAME);
+
 
         txtName = (EditText) findViewById(R.id.edit_name);
         txtAge = (EditText) findViewById(R.id.edit_age);
@@ -101,6 +104,8 @@ public class EditPet extends AppCompatActivity {
                 // starting background task to update product
 
                 new onAddPet().execute(name,age,animal, breed, location, description, account, pid);
+
+                finish();
             }
         });
 
@@ -151,6 +156,7 @@ public class EditPet extends AppCompatActivity {
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair(TAG_ID, pid));
             params.add(new BasicNameValuePair(TAG_NAME, name));
             params.add(new BasicNameValuePair(TAG_AGE, age));
             params.add(new BasicNameValuePair(TAG_BREED, breed));
