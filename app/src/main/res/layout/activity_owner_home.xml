@@ -10,14 +10,6 @@
     tools:context="com.mobile4623.easy.adogption.OwnerHome"
     android:background="@color/colorPrimary">
 
-    <Button
-        android:id="@+id/btnGoToUserHome"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Go To User Home"
-        android:textSize="14dp"
-        android:layout_marginLeft="180dip"/>
-
 
     <LinearLayout
         android:orientation="vertical"
@@ -29,7 +21,18 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".4"
-            android:layout_gravity="center_horizontal"></RelativeLayout>
+            android:layout_gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btnGoToUserHome"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="User Home"
+                android:textSize="14dp"
+                android:layout_marginLeft="180dip"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/view_requests_button"

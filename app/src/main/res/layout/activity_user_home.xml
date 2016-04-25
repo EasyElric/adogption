@@ -1,27 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.mobile4623.easy.adogption.UserHome">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/skcLight">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btnGoToOwnerHome"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_width="wrap_content"
+        android:text="@string/to_owner_home"
+        android:textSize="14dp"
+        android:layout_marginLeft="180dip"
+        android:background="@drawable/button_rounded"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/linearLayout" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/linearLayout">
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="0dp"
+            android:layout_weight=".4"
+            android:layout_gravity="center_horizontal">
 
-    </android.support.design.widget.AppBarLayout>
+        </RelativeLayout>
 
-    <include layout="@layout/content_user_home" />
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_weight=".15"
+            android:layout_gravity="center"
+            android:text="@string/search_btn"
+            android:textSize="30dp"
+            android:background="@drawable/button_rounded"
+            android:layout_marginBottom="2dp" />
 
+        <Button
+            android:id="@+id/profile_button"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_weight=".15"
+            android:layout_gravity="center"
+            android:text="@string/profile_btn"
+            android:textSize="30dp"
+            android:background="@drawable/button_rounded"
+            android:layout_marginBottom="2dp"/>
 
-</android.support.design.widget.CoordinatorLayout>
+        <Button
+            android:id="@+id/favs_button"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_weight=".15"
+            android:layout_gravity="center"
+            android:text="@string/favs_btn"
+            android:textSize="30dp"
+            android:background="@drawable/button_rounded"
+            android:layout_marginBottom="2dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".1"/>
+
+    </LinearLayout>
+</RelativeLayout>

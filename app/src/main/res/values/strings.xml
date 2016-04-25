@@ -11,6 +11,7 @@
     <string name="user_name">Username</string>
     <string name="password">Password</string>
     <string name="add_pet_btn">Add Pet</string>
+    <string name="to_owner_home">Owner Home</string>
     <string-array name="animal_type_array">
         <item>Dog</item>
         <item>Cat</item>

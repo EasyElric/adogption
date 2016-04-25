@@ -17,15 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".UserHome"
-            android:label="@string/title_activity_user_home"
-            android:parentActivityName=".LoginScreen"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mobile4623.easy.adogption.LoginScreen" />
-        </activity>
+        <activity android:name=".UserHome"/>
         <activity android:name=".OwnerHome" />
         <activity android:name=".AddPet" />
         <activity android:name=".PetSearch" />
