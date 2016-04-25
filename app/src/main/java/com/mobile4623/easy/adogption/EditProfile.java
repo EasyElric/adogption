@@ -2,6 +2,7 @@ package com.mobile4623.easy.adogption;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ public class EditProfile extends Activity {
     String editDesc;
 
     String account;
+    String type;
+    String success;
     private ProgressDialog pDialog;
 
     //constants
@@ -48,6 +51,9 @@ public class EditProfile extends Activity {
     private static final String TAG_LOGIN = "login";
     private static final String TAG_ACCOUNT = "account";
     private static final String TAG_SUCCESS = "success";
+    private static final String TAG_TYPE= "type";
+    private static final String TAG_TYPEOWNER= "2";
+    private static final String TAG_TYPEUSER= "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +65,7 @@ public class EditProfile extends Activity {
         txtDescription = (EditText) findViewById(R.id.edit_user_desc);
 
         btnSave = (Button) findViewById(R.id.btn_profile_save);
+        btnCancel = (Button) findViewById(R.id.btn_profile_cancel);
 
         SharedPreferences preferences = getSharedPreferences(TAG_LOGIN, MODE_PRIVATE);
         account = preferences.getString("login", "defaultStringIfNothingFound");
@@ -75,7 +82,16 @@ public class EditProfile extends Activity {
                 String name = txtName.getText().toString();
                 String location = txtLocation.getText().toString();
                 String description = txtDescription.getText().toString();
-               new SaveProfile().execute(name,location,description);
+                new SaveProfile().execute(name, location, description, account);
+            }
+        });
+
+        // save button click event
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                onCancel();
             }
         });
     }
@@ -123,6 +139,7 @@ public class EditProfile extends Activity {
                 editName = json.getString(TAG_NAME);
                 editLocation = json.getString(TAG_LOCATION);
                 editDesc = json.getString(TAG_DESCRIPTION);
+                type = json.getString(TAG_TYPE);
 
 
             }catch (JSONException e) {
@@ -168,12 +185,14 @@ public class EditProfile extends Activity {
             String name = args[0];
             String location = args[1];
             String description = args[2];
+            String account = args[3];
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair(TAG_NAME, name));
             params.add(new BasicNameValuePair(TAG_LOCATION, location));
             params.add(new BasicNameValuePair(TAG_DESCRIPTION, description));
+            params.add(new BasicNameValuePair(TAG_ACCOUNT, account));
 
             JSONObject json = jsonParser.makeHttpRequest(
                     WebConstants.URL_EDIT_PROFILE, "POST", params);
@@ -204,6 +223,20 @@ public class EditProfile extends Activity {
         txtLocation.setText(editLocation);
         txtDescription.setText(editDesc);
 
+    }
+
+    void onCancel(){
+        if(type.equals(TAG_TYPEOWNER)){
+            Intent i = new Intent(getApplicationContext(),
+                    OwnerHome.class);
+            Log.e("Success error", "inside if owner");
+            startActivity(i);
+        }else if(type.equals(TAG_TYPEUSER)){
+            Intent i = new Intent(getApplicationContext(),
+                    UserHome.class);
+            Log.e("Success error", "inside if user");
+            startActivity(i);
+        }
     }
 
 }
