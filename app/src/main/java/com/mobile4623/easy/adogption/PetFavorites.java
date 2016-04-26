@@ -2,13 +2,10 @@ package com.mobile4623.easy.adogption;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.apache.http.NameValuePair;
@@ -21,88 +18,62 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by FG
+ * Created by Guille on 4/25/2016.
  */
-
-public class ManagePets extends Activity {
-
-    private static final String TAG = "ManagePetsActivity";
-    private static final String TAG_USERNAME = "username";
-    private static final String TAG_ACCOUNT = "account";
-    private static final String TAG_LOGIN = "login";
+public class PetFavorites extends Activity {
 
     // Progress Dialog
     private ProgressDialog pDialog;
-
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
 
     ArrayList<Pet> petArrayList = new ArrayList<>();
     ListView petList;
-    PetAdapter petAdapter;
+
+    String account;
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PETS = "pets";
-    public static final String TAG_NAME = "Name";
+    private static final String TAG_NAME = "Name";
     private static final String TAG_AGE = "Age";
     private static final String TAG_ANIMAL = "Animal";
     private static final String TAG_BREED = "Breed";
     private static final String TAG_LOCATION = "Location";
     private static final String TAG_DESCRIPTION = "Description";
     private static final String TAG_ID = "ID";
-
-    public String account;
-
+    private static final String TAG_LOGIN = "login";
+    private static final String TAG_ACCOUNT = "account";
 
     // products JSONArray
     JSONArray pets = null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_pets);
+        setContentView(R.layout.activity_search_pet);
 
-
-
-        petList = (ListView) findViewById(R.id.list_favorites);
-        petAdapter = new PetAdapter(ManagePets.this, petArrayList);
-        petList.setAdapter(petAdapter);
-
-
-        // Get username from shared preferences
         SharedPreferences preferences = getSharedPreferences(TAG_LOGIN, MODE_PRIVATE);
         account = preferences.getString("login", "defaultStringIfNothingFound");
 
         // Loading products in Background Thread
-        new LoadAllPets().execute(account);
+        new LoadFavorites().execute();
 
-        // ClickListener for each task item
-        petList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Pet pet = (Pet) parent.getAdapter().getItem(position);
-                Intent intent = new Intent(getApplicationContext(), EditPet.class);
-
-                // build the intent
-                intent.putExtra(TAG_NAME, pet);
-                startActivity(intent);
-            }
-        });
     }
 
     /**
-     * Background Async Task to Load all pets by making HTTP Request
+     * Background Async Task to Load all product by making HTTP Request
      * */
-    class LoadAllPets extends AsyncTask<String, String, Void> {
+    class LoadFavorites extends AsyncTask<String, String, Void> {
 
         /**
          * Before starting background thread Show Progress Dialog
-         * */
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(ManagePets.this);
+            pDialog = new ProgressDialog(PetFavorites.this);
             pDialog.setMessage("Loading pets. Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
@@ -110,26 +81,23 @@ public class ManagePets extends Activity {
         }
 
         /**
-         * getting All pets from url
-         * */
+         * getting All products from url
+         */
         protected Void doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            String username = args[0];
-            Log.d(TAG, username);
-            params.add(new BasicNameValuePair(TAG_ACCOUNT, username));
+            params.add(new BasicNameValuePair(TAG_ACCOUNT, account));
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(
-                    WebConstants.URL_MANAGE_PETS, "POST", params);
-
+                    WebConstants.URL_LOAD_FAVORITES, "POST", params);
 
             // Check your log cat for JSON response
-            if(json == null) {
-                Log.d(TAG, "no data retrieved. Exit.");
+            if (json == null) {
+                Log.d("JSON PET FAV", "no data retrieved. Exit.");
                 return null;
             }
 
-            Log.d("All Pets: ", json.toString());
+            Log.d("All Products: ", json.toString());
 
             try {
                 // Checking for SUCCESS TAG
@@ -140,18 +108,29 @@ public class ManagePets extends Activity {
                     // Getting Array of Products
                     pets = json.getJSONArray(TAG_PETS);
 
-                    // looping through All Pets
+                    // looping through All Products
                     for (int i = 0; i < pets.length(); i++) {
                         JSONObject c = pets.getJSONObject(i);
                         Pet pet = new Pet(); // Create pet
-                        pet.setName(c.getString(TAG_NAME)); // Storing each json item in the pet
-                        pet.setAge(c.getString(TAG_AGE));
-                        pet.setAnimal(c.getString(TAG_ANIMAL));
-                        pet.setBreed(c.getString(TAG_BREED));
-                        pet.setLocation(c.getString(TAG_LOCATION));
-                        pet.setDescription(c.getString(TAG_DESCRIPTION));
-                        pet.setPetID(c.getString(TAG_ID));
-                        // adding HashList to ArrayList
+
+                        String name = c.getString(TAG_NAME);
+                        String age = c.getString(TAG_AGE);
+                        String animal = c.getString(TAG_ANIMAL);
+                        String breed = c.getString(TAG_BREED);
+                        String location = c.getString(TAG_LOCATION);
+                        String desc = c.getString(TAG_DESCRIPTION);
+                        String pID = c.getString(TAG_ID);
+
+
+                        pet.setName(name); // Storing each json item in the pet
+                        pet.setAge(age);
+                        pet.setAnimal(animal);
+                        pet.setBreed(breed);
+                        pet.setLocation(location);
+                        pet.setDescription(desc);
+                        pet.setPetID(pID);
+
+                        // adding pet to ArrayList
                         petArrayList.add(pet);
                     }
                 } else {
@@ -167,7 +146,7 @@ public class ManagePets extends Activity {
 
         /**
          * After completing background task Dismiss the progress dialog
-         * **/
+         **/
         protected void onPostExecute(Void file_url) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
@@ -179,18 +158,14 @@ public class ManagePets extends Activity {
                      * Updating parsed JSON data into ListView
                      * */
 
-                    petAdapter.notifyDataSetChanged();
-
-
+                    petList = (ListView) findViewById(R.id.list_pet_search);
+                    PetAdapter petAdapter = new PetAdapter(PetFavorites.this, petArrayList);
+                    petList.setAdapter(petAdapter);
 
 
                 }
             });
 
         }
-
     }
-
-
-
 }

@@ -24,8 +24,13 @@
         <activity android:name=".CreateAccount" />
         <activity android:name=".EditProfile" />
         <activity android:name=".ManagePets" />
+<<<<<<< HEAD
         <activity android:name=".EditPet" />
         <activity android:name=".PetSearchDetails"></activity>
+=======
+        <activity android:name=".EditPet"   />
+        <activity android:name=".PetFavorites"   />
+>>>>>>> 90c761709c0a9313b6b5d5b0501ec323a5023bff
     </application>
 
 </manifest>

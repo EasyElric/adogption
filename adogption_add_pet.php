@@ -15,6 +15,7 @@
     if(isset($_POST['name']) || isset($_POST['age']))
     {
 	
+		
 		//check for account id
 		
 			$sql = 'SELECT username, id FROM users';
@@ -34,7 +35,7 @@
 						 '$_POST[location]','$_POST[description]','$accountID')";
                 $retval = mysql_query( $sql, $dbhandle );
 				
-				$response["success"]=1;
+				$response["success"]=$_POST['account'];
 				print(json_encode($response));
     } 
 ?>

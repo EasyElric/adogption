@@ -9,7 +9,7 @@
     //select a database to work with
     $selected = mysql_select_db("Pets",$dbhandle) ;
 	
-		//check for account id
+//check for account id
 	
 			$sql = 'SELECT username, id FROM users';
             $retval = mysql_query( $sql, $dbhandle );
@@ -23,17 +23,18 @@
                 }
             }
 			
-			//check for account id
+			//load from account
 	
-			$sql = 'SELECT name, location, description FROM users WHERE id = '$accountID'';
+			$sql = "SELECT name, location, description,type FROM users WHERE id = '$accountID'";
             $retval = mysql_query( $sql, $dbhandle );
-          
-            $array["name"] = $row['name'];
-			$array["location"] = $row['location'];
-			$array["description"] = $row['description'];
-			$array["success"] = 1
-			print(json_encode($array));
 			
-
+			$row = mysql_fetch_array($retval);
+				$array["name"] = $row['name'];
+				$array["location"] = $row['location'];
+				$array["description"] = $row['description'];
+				$array["type"] = $row['type'];
+			
+			$array["success"] = 1;
+			print(json_encode($array));
 	
 	?>
