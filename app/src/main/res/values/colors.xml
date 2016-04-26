@@ -2,13 +2,12 @@
 <resources>
     <color name="colorPrimary">#3e9cd6</color>
     <color name="colorPrimaryDark">#9ea0a3</color>
-    <color name="colorAccent">#000000</color>
+    <color name="colorAccent">#9ea0a3</color>
     <color name="White">#FFFFFF</color>
     <color name="skcDark">#002b5c</color>
     <color name="skcLight">#90afd4</color>
     <color name="skcAccent">#9ea0a3</color>
     <color name="skcWhite">#fdfdfe</color>
     <color name="skypeBlue">#3e9cd6</color>
-
 
 </resources>

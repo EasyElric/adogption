@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -34,6 +36,7 @@ public class PetSearch extends Activity {
 
     ArrayList<Pet> petArrayList = new ArrayList<>();
     ListView petList;
+    PetAdapter petAdapter;
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -56,8 +59,25 @@ public class PetSearch extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_pet);
 
+        petList = (ListView) findViewById(R.id.list_pet_search);
+        petAdapter = new PetAdapter(PetSearch.this,petArrayList);
+        petList.setAdapter(petAdapter);
+
         // Loading products in Background Thread
         new LoadAllPets().execute();
+
+        // ClickListener for each task item
+        petList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Pet pet = (Pet) parent.getAdapter().getItem(position);
+                Intent intent = new Intent(getApplicationContext(), EditPet.class);
+
+                // build the intent
+                intent.putExtra(TAG_NAME, pet);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -156,11 +176,7 @@ public class PetSearch extends Activity {
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-
-                    petList = (ListView) findViewById(R.id.list_pet_search);
-                    PetAdapter petAdapter = new PetAdapter(PetSearch.this,petArrayList);
-                    petList.setAdapter(petAdapter);
-
+                    petAdapter.notifyDataSetChanged();
 
                 }
             });

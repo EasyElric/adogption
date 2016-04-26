@@ -53,9 +53,6 @@ public class EditPet extends AppCompatActivity {
     private static final String TAG_ID = "id";
 
 
-    private int updateStatus = 0;
-    private JSONObject mJson;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

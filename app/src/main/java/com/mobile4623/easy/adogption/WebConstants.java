@@ -9,6 +9,10 @@ public class WebConstants {
 
         public static final String URL_ALL_PETS = SERVER_ADDR + "adogption_search_pet.php";
 
+        public static final String URL_PET_SEARCH_DETAIL = SERVER_ADDR + "adogption_pet_search_detail.php";
+
+        public static final String URL_ADD_FAVORITE = SERVER_ADDR + "adogption_add_favorite.php";
+
         public static final String URL_EDIT_PET = SERVER_ADDR + "adogption_edit_pet.php";
 
         public static final String URL_CREATE_ACCOUNT = SERVER_ADDR + "adogption_create_user.php";

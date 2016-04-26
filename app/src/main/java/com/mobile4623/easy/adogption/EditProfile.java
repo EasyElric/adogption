@@ -113,7 +113,7 @@ public class EditProfile extends Activity {
         }
 
         /**
-         * Saving product
+         * Loading profile
          * */
         protected String doInBackground(String... args) {
 
@@ -153,7 +153,7 @@ public class EditProfile extends Activity {
          * After completing background task Dismiss the progress dialog
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once product uupdated
+            // dismiss the dialog once product updated
             pDialog.dismiss();
             postLoad();
         }
@@ -177,7 +177,7 @@ public class EditProfile extends Activity {
         }
 
         /**
-         * Saving product
+         * Saving profile
          * */
         protected String doInBackground(String... args) {
 
@@ -212,7 +212,7 @@ public class EditProfile extends Activity {
          * After completing background task Dismiss the progress dialog
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once product uupdated
+            // dismiss the dialog once product updated
             pDialog.dismiss();
         }
     }
