@@ -158,7 +158,7 @@ public class PetFavorites extends Activity {
                      * Updating parsed JSON data into ListView
                      * */
 
-                    petList = (ListView) findViewById(R.id.list_pet_search);
+                    petList = (ListView) findViewById(R.id.list_favorites);
                     PetAdapter petAdapter = new PetAdapter(PetFavorites.this, petArrayList);
                     petList.setAdapter(petAdapter);
 
