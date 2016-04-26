@@ -8,23 +8,17 @@
 
     //select a database to work with
     $selected = mysql_select_db("Pets",$dbhandle) ;
-
-	//check for account id
 	
-			$sql = 'SELECT username, id FROM pets';
-            $retval = mysql_query( $sql, $dbhandle );
-          
-            while($row = mysql_fetch_array($retval, MYSQL_ASSOC))
-            {
-                if($_POST['account'] == $row['username'])
-                {
-                   $accountID = $row['id'];
-				   break;
-                }
-            }
-			
-	//search for pets with account id		
-	$sql = "SELECT * FROM pets WHERE aid = '$accountID'";
+	$sql = "SELECT * FROM users WHERE username = '$_POST[account]'";
+    $retval = mysql_query( $sql, $dbhandle );
+	$row = mysql_fetch_array($retval);
+	
+	$favoritesAll = $row['favorites'];
+	$temp = explode(",",$favoritesALL);
+	$favorites = implode("','",$temp);
+	$favorites = "'".$favorites."'";
+	
+	$sql = "SELECT * FROM pets WHERE ID in '$favorites'";
     $retval = mysql_query( $sql, $dbhandle );
 	$array = [];
 				
@@ -35,5 +29,9 @@
 				
 	$array["success"]=1;
 	print(json_encode($array));
-			
+	
+	
+	
+	
+	
 	?>

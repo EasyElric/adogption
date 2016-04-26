@@ -25,6 +25,7 @@
         <activity android:name=".EditProfile" />
         <activity android:name=".ManagePets" />
         <activity android:name=".EditPet"   />
+        <activity android:name=".PetFavorites"   />
     </application>
 
 </manifest>
