@@ -47,6 +47,7 @@ public class PetSearchDetails extends Activity {
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_ID = "id";
+    private static final String TAG_ACCOUNT = "account";
     private static final String TAG_LOGIN = "login";
     private static final String TAG_NAME = "name";
     private static final String TAG_AGE = "age";
@@ -93,7 +94,7 @@ public class PetSearchDetails extends Activity {
             @Override
             public void onClick(View view) {
                 // Add pet to user favorites, toast
-                new onFavoritePet().execute(pid);
+                new onFavoritePet().execute(pid, account);
             }
         });
         // Open contact owner activity
@@ -223,6 +224,7 @@ public class PetSearchDetails extends Activity {
         protected String doInBackground(String... args) {
 
             String pid = args[0];
+            String account = args[1];
 
             pid = "," + pid;
 
@@ -234,6 +236,7 @@ public class PetSearchDetails extends Activity {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair(TAG_ID, pid));
+            params.add(new BasicNameValuePair(TAG_ACCOUNT, account));
 
             // sending modified data through http request
             // Notice that update product url accepts POST method
