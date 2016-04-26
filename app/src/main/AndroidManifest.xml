@@ -9,7 +9,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@android:style/Theme.NoTitleBar">
+        android:theme="@style/AppTheme">
         <activity android:name=".LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,8 +25,8 @@
         <activity android:name=".EditProfile" />
         <activity android:name=".ManagePets" />
         <activity android:name=".EditPet" />
-        <activity android:name=".PetSearchDetails"></activity>
-        <activity android:name=".PetFavorites"   />
+        <activity android:name=".PetSearchDetails" />
+        <activity android:name=".PetFavorites" />
     </application>
 
 </manifest>
