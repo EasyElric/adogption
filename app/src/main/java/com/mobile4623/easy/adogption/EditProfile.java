@@ -13,7 +13,6 @@ import android.widget.EditText;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +26,7 @@ public class EditProfile extends Activity {
 
     // JSON parser class
     JSONParser jsonParser = new JSONParser();
-    JSONArray settings = null;
+    //JSONArray settings = null;
 
     //view
     EditText txtName;
@@ -41,7 +40,7 @@ public class EditProfile extends Activity {
 
     String account;
     String type;
-    String success;
+    //String success;
     private ProgressDialog pDialog;
 
     //constants
@@ -121,7 +120,7 @@ public class EditProfile extends Activity {
             account = args[0];
 
             // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair(TAG_ACCOUNT, account));
 
             JSONObject json = jsonParser.makeHttpRequest(
@@ -153,7 +152,7 @@ public class EditProfile extends Activity {
          * After completing background task Dismiss the progress dialog
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once product updated
+            // dismiss the dialog once profile updated
             pDialog.dismiss();
             postLoad();
         }
@@ -188,7 +187,7 @@ public class EditProfile extends Activity {
             String account = args[3];
 
             // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair(TAG_NAME, name));
             params.add(new BasicNameValuePair(TAG_LOCATION, location));
             params.add(new BasicNameValuePair(TAG_DESCRIPTION, description));

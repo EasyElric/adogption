@@ -41,7 +41,7 @@ public class PetSearch extends Activity {
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PETS = "pets";
-    private static final String TAG_NAME = "Name";
+    protected static final String TAG_NAME = "Name";
     private static final String TAG_AGE = "Age";
     private static final String TAG_ANIMAL = "Animal";
     private static final String TAG_BREED = "Breed";
@@ -78,6 +78,20 @@ public class PetSearch extends Activity {
                 startActivity(intent);
             }
         });
+
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.i(TAG, "onStop");
+
+    }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        Log.i(TAG, "onRestart");
 
     }
 

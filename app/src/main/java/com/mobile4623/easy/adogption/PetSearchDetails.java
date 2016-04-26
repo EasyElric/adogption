@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,12 +25,12 @@ import java.util.List;
 
 public class PetSearchDetails extends Activity {
 
-    private static final String TAG = "PetSearchDetails";
+    //private static final String TAG = "PetSearchDetails";
 
     // UI elements (pet info, owner info, three action buttons)
     TextView petName, petAge, petBreed, petDescription, petLocation;
     TextView ownerName, ownerDescription, ownerLocation;
-    Button btnFavorite,btnContact,btnCancel;
+    Button btnFavorite,btnContact,btnBack;
 
     String pName, pAge, pBreed, pDescription, pLocation,
             oName, oDescription, oLocation;
@@ -44,12 +43,6 @@ public class PetSearchDetails extends Activity {
     // JSON parser class
     JSONParser jsonParser = new JSONParser();
 
-    // Creating JSON Parser object
-    JSONParser jParser = new JSONParser();
-
-    // products JSONArray
-    JSONArray pets = null;
-
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -57,7 +50,7 @@ public class PetSearchDetails extends Activity {
     private static final String TAG_LOGIN = "login";
     private static final String TAG_NAME = "name";
     private static final String TAG_AGE = "age";
-    private static final String TAG_ANIMAL = "animal";
+    //private static final String TAG_ANIMAL = "animal";
     private static final String TAG_BREED = "breed";
     private static final String TAG_LOCATION = "location";
     private static final String TAG_DESCRIPTION = "description";
@@ -72,7 +65,7 @@ public class PetSearchDetails extends Activity {
 
         // get pet data from Pet Search Intent
         Intent intent = getIntent();
-        Pet pet = intent.getParcelableExtra(ManagePets.TAG_NAME);
+        Pet pet = intent.getParcelableExtra(PetSearch.TAG_NAME);
         pid = pet.getPetID();
 
         // Load pet and owner info in Background Thread
@@ -92,9 +85,9 @@ public class PetSearchDetails extends Activity {
         ownerLocation = (TextView)findViewById(R.id.owner_location);
         btnFavorite = (Button)findViewById(R.id.btn_favorite);
         btnContact = (Button)findViewById(R.id.btn_contact);
-        btnCancel = (Button)findViewById(R.id.btn_cancel);
+        btnBack = (Button)findViewById(R.id.btn_cancel);
 
-        // add pet click event
+        // Add pet to favorites click event
         btnFavorite.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -103,7 +96,7 @@ public class PetSearchDetails extends Activity {
                 new onFavoritePet().execute(pid);
             }
         });
-        // profile click event
+        // Open contact owner activity
         btnContact.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -112,13 +105,14 @@ public class PetSearchDetails extends Activity {
 
             }
         });
-        // manage pets click event
-        btnCancel.setOnClickListener(new View.OnClickListener() {
+        // Back button click event
+        btnBack.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 // Return to Pet Search
-                finish();
+                //finish();
+                goBack();
 
             }
         });
@@ -150,7 +144,7 @@ public class PetSearchDetails extends Activity {
             pid = args[0];
 
             // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair(TAG_ID, pid));
 
             JSONObject json = jsonParser.makeHttpRequest(
@@ -270,7 +264,7 @@ public class PetSearchDetails extends Activity {
 
     public void goBack(){
         Intent i = new Intent(getApplicationContext(),
-                ManagePets.class);
+                PetSearch.class);
         startActivity(i);
     }
 }
