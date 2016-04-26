@@ -51,7 +51,6 @@ public class PetSearchDetails extends Activity {
     JSONArray pets = null;
 
 
-
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_ID = "id";
