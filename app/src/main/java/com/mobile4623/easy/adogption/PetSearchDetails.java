@@ -122,7 +122,7 @@ public class PetSearchDetails extends Activity {
     /**
      * Background Async Task to Save product Details
      * */
-    class onLoadInfo extends AsyncTask<String, String, Void> {
+    class onLoadInfo extends AsyncTask<String, String, String> {
 
         /**
          * Before starting background thread Show Progress Dialog
@@ -141,8 +141,8 @@ public class PetSearchDetails extends Activity {
         /**
          * getting owner and pet information from url
          * */
-        protected Void doInBackground(String... args) {
-            pid = args[0];
+        protected String doInBackground(String... args) {
+            String pid = args[0];
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<>();

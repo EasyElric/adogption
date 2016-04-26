@@ -71,7 +71,7 @@ public class PetSearch extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Pet pet = (Pet) parent.getAdapter().getItem(position);
-                Intent intent = new Intent(getApplicationContext(), EditPet.class);
+                Intent intent = new Intent(getApplicationContext(), PetSearchDetails.class);
 
                 // build the intent
                 intent.putExtra(TAG_NAME, pet);
