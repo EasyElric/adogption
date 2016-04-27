@@ -112,8 +112,8 @@ public class PetSearchDetails extends Activity {
             @Override
             public void onClick(View view) {
                 // Return to Pet Search
-                //finish();
-                goBack();
+                finish();
+                //goBack();
 
             }
         });

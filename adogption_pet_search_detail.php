@@ -11,7 +11,7 @@
 	
 	
 	
-	$sql = "SELECT * FROM pets WHERE ID = '$_POST[id]";
+	$sql = "SELECT * FROM pets WHERE ID = '$_POST[id]'";
     $retval = mysql_query( $sql, $dbhandle );
 	$row = mysql_fetch_array($retval);
 	$array["name"]=$row['Name'];
