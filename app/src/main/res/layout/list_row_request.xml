@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Sender-->
+    <TextView
+        android:id="@+id/request_row_sender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:paddingBottom ="10dip"
+        android:text="Name"
+        android:textColor="#040404"
+        android:textSize="22dip"
+        android:textStyle="bold"
+        android:typeface="sans" />
+    <!-- Message-->
+    <TextView
+        android:id="@+id/reqquest_row_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/petRowName"
+        android:paddingTop="5dip"
+        android:text="Breed"
+        android:layout_marginLeft="40dip"
+        android:textColor="#343434"
+        android:textSize="15dip" />
+
+</LinearLayout>
