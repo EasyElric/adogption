@@ -30,4 +30,6 @@ public class WebConstants {
         public static final String URL_CREATE_PET = SERVER_ADDR + "adogption_add_pet.php";
 
         public static final String URL_LOAD_REQUESTS = SERVER_ADDR + "adogption_load_requests.php";
+
+        public static final String URL_CHECK_READ = SERVER_ADDR + "adogption_check_read.php";
 }

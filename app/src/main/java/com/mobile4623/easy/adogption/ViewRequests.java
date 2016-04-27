@@ -65,7 +65,7 @@ public class ViewRequests extends Activity {
         SharedPreferences preferences = getSharedPreferences(TAG_LOGIN, MODE_PRIVATE);
         account = preferences.getString("login", "defaultStringIfNothingFound");
 
-        // Loading products in Background Thread
+        // Loading requests in Background Thread
         new LoadAllRequests().execute(account);
 
         // ClickListener for each task item
@@ -94,7 +94,7 @@ public class ViewRequests extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(ViewRequests.this);
-            pDialog.setMessage("Loading pets. Please wait...");
+            pDialog.setMessage("Loading requests. Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();

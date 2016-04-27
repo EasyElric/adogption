@@ -9,5 +9,7 @@
     <color name="skcAccent">#9ea0a3</color>
     <color name="skcWhite">#fdfdfe</color>
     <color name="skypeBlue">#3e9cd6</color>
+    <color name="redAlert">#ff0000</color>
+
 
 </resources>
