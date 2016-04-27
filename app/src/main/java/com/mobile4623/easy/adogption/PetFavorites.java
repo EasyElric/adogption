@@ -29,6 +29,8 @@ public class PetFavorites extends Activity {
 
     ArrayList<Pet> petArrayList = new ArrayList<>();
     ListView petList;
+    PetAdapter petAdapter;
+
 
     String account;
 
@@ -52,10 +54,14 @@ public class PetFavorites extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_pet);
+        setContentView(R.layout.activity_load_favorites);
 
         SharedPreferences preferences = getSharedPreferences(TAG_LOGIN, MODE_PRIVATE);
         account = preferences.getString("login", "defaultStringIfNothingFound");
+
+        petList = (ListView) findViewById(R.id.list_favorites);
+        petAdapter = new PetAdapter(PetFavorites.this, petArrayList);
+        petList.setAdapter(petAdapter);
 
         // Loading products in Background Thread
         new LoadFavorites().execute();
@@ -158,9 +164,7 @@ public class PetFavorites extends Activity {
                      * Updating parsed JSON data into ListView
                      * */
 
-                    petList = (ListView) findViewById(R.id.list_favorites);
-                    PetAdapter petAdapter = new PetAdapter(PetFavorites.this, petArrayList);
-                    petList.setAdapter(petAdapter);
+                    petAdapter.notifyDataSetChanged();
 
 
                 }
