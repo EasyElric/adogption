@@ -65,7 +65,7 @@ public class ManagePets extends Activity {
 
 
 
-        petList = (ListView) findViewById(R.id.list_favorites);
+        petList = (ListView) findViewById(R.id.list_manage_pets);
         petAdapter = new PetAdapter(ManagePets.this, petArrayList);
         petList.setAdapter(petAdapter);
 
