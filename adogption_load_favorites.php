@@ -14,24 +14,23 @@
 	$row = mysql_fetch_array($retval);
 	
 	$favoritesAll = $row['favorites'];
-	$temp = explode(",",$favoritesALL);
-	$favorites = implode("','",$temp);
-	$favorites = "'".$favorites."'";
+	$favoritesAll = substr($favoritesAll, 1);
+	$temp = explode(',',$favoritesAll);
+	$favorites = implode(",",$temp);
+	$favorites = "(".$favorites.")";
 	
-	$sql = "SELECT * FROM pets WHERE ID in '$favorites'";
+	$sql = "SELECT * FROM pets WHERE ID in $favorites";
     $retval = mysql_query( $sql, $dbhandle );
 	$array = [];
 				
 	while($row = mysql_fetch_array($retval, MYSQL_ASSOC))
     {
-		$array[pets][] = $row	;
+		$array["pets"][] = $row	;
 	}
 				
+
 	$array["success"]=1;
 	print(json_encode($array));
-	
-	
-	
-	
+
 	
 	?>

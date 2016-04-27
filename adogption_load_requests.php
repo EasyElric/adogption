@@ -8,9 +8,9 @@
 
     //select a database to work with
     $selected = mysql_select_db("Pets",$dbhandle) ;
-
-	//check for account id
 	
+	//check for account id
+		
 			$sql = 'SELECT username, id FROM users';
             $retval = mysql_query( $sql, $dbhandle );
           
@@ -23,17 +23,18 @@
                 }
             }
 			
-	//search for pets with account id		
-	$sql = "SELECT * FROM pets WHERE aid = '$accountID'";
+	$sql = "SELECT * FROM requests WHERE receiver = '$accountID'";
     $retval = mysql_query( $sql, $dbhandle );
 	$array = [];
 				
 	while($row = mysql_fetch_array($retval, MYSQL_ASSOC))
     {
-		$array[pets][] = $row	;
+		$array["request"][] = $row	;
 	}
 				
+
 	$array["success"]=1;
 	print(json_encode($array));
-			
+	
+	
 	?>

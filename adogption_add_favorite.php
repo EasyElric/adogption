@@ -13,10 +13,10 @@
     $retval = mysql_query( $sql, $dbhandle );
 	$row = mysql_fetch_array($retval);
 	
-	$favorites = $row['favorites'] . $_POST['favorite'];
+	$favorites = $row['favorites'] . $_POST['id'];
 	
 	$sql = "UPDATE users SET favorites='$favorites'
-			WHERE id = '$_POST[account]'";
+			WHERE username = '$_POST[account]'";
             $retval = mysql_query( $sql, $dbhandle );
 			
 			$array["success"]=1;
