@@ -74,8 +74,6 @@ public class AddPet extends Activity {
     private static final String TAG_LOGIN = "login";
     private static final String TAG_ACCOUNT = "account";
 
-    private int updateStatus = 0;
-    private JSONObject mJson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +155,7 @@ public class AddPet extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(AddPet.this);
-            pDialog.setMessage("Saving pet ...");
+            pDialog.setMessage("Adding pet ...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -165,7 +163,7 @@ public class AddPet extends Activity {
         }
 
         /**
-         * Saving product
+         * Saving pet
          * */
         protected String doInBackground(String... args) {
 
@@ -182,7 +180,7 @@ public class AddPet extends Activity {
             Log.e("account", account);
 
             // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair(TAG_NAME, name));
             params.add(new BasicNameValuePair(TAG_AGE, age));
             params.add(new BasicNameValuePair(TAG_BREED, breed));
@@ -212,7 +210,7 @@ public class AddPet extends Activity {
          * After completing background task Dismiss the progress dialog
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once product uupdated
+            // dismiss the dialog once product updated
             pDialog.dismiss();
         }
     }

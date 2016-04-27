@@ -63,7 +63,7 @@ public class EditPet extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        Pet pet = (Pet)intent.getParcelableExtra(ManagePets.TAG_NAME);
+        Pet pet = intent.getParcelableExtra(ManagePets.TAG_NAME);
 
 
         txtName = (EditText) findViewById(R.id.edit_name);

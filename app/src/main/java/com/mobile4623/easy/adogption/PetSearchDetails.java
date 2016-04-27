@@ -34,7 +34,7 @@ public class PetSearchDetails extends Activity {
     Button btnFavorite,btnContact,btnBack;
 
     String pName, pAge, pBreed, pDescription, pLocation,
-            oName, oDescription, oLocation;
+            oName, oDescription, oLocation, oID;
 
     String account; // account id
     String pid; // pet id
@@ -60,6 +60,7 @@ public class PetSearchDetails extends Activity {
     private static final String OWNER_DESC = "odescription";
     private static final String OWNER_LOCA = "olocation";
     private static final String TAG_OID = "uid";
+    private static final String TAG_AID = "aid";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,10 +109,8 @@ public class PetSearchDetails extends Activity {
                 // Launching create new product activity
                 Intent i = new Intent(getApplicationContext(),
                         PetSendMessage.class);
-                i.putExtra(TAG_OID, )
+                i.putExtra(TAG_OID, oID);
                 startActivity(i);
-
-
             }
         });
         // Back button click event
@@ -175,6 +174,7 @@ public class PetSearchDetails extends Activity {
                 oName = json.getString(OWNER_NAME);
                 oDescription = json.getString(OWNER_DESC);
                 oLocation = json.getString(OWNER_LOCA);
+                oID = json.getString(TAG_AID);
 
             }catch (JSONException e) {
                 e.printStackTrace();

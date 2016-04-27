@@ -51,7 +51,7 @@ public class RequestAdapter extends BaseAdapter {
         convertView= layoutInflater.inflate(R.layout.list_row_request, null);
 
         TextView txtSender=(TextView)convertView.findViewById(R.id.request_row_sender);
-        TextView txtMessage=(TextView)convertView.findViewById(R.id.reqquest_row_message);
+        TextView txtMessage=(TextView)convertView.findViewById(R.id.request_row_message);
 
         Request request = data.get(position);
 

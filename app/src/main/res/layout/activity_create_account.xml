@@ -7,12 +7,13 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.mobile4623.easy.adogption.CreateAccount">
+    tools:context="com.mobile4623.easy.adogption.CreateAccount"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,12 +23,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:textColor="@color/White"
                 android:text="@string/user_name"
                 android:textSize="20dp"/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textColor="@color/White"
                 android:id="@+id/create_user"/>
 
         </LinearLayout>
@@ -40,12 +43,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:textColor="@color/White"
                 android:text="@string/password"
                 android:textSize="20dp"/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textColor="@color/White"
                 android:id="@+id/create_pass"/>
 
         </LinearLayout>
@@ -54,13 +59,17 @@
             android:id="@+id/create_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/White"
             />
 
 
         <Button
-            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_rounded"
             android:id="@+id/addAccount"
+            android:text="Create Account"
             />
 
 

@@ -1,6 +1,7 @@
 package com.mobile4623.easy.adogption;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -35,7 +37,7 @@ public class PetSendMessage extends AppCompatActivity {
     private static final String TAG_RECEIVER = "receiver";
     private static final String TAG_MESSAGE = "message";
     private static final String TAG_LOGIN = "login";
-    private static final String TAG_UID = "uid";
+    private static final String TAG_OID = "uid";
 
     String account; // account id
 
@@ -53,17 +55,20 @@ public class PetSendMessage extends AppCompatActivity {
         btnSend = (Button) findViewById(R.id.btnContactSend);
         messageContent = (EditText) findViewById(R.id.contact_message);
 
-
         // Open contact owner activity
         btnSend.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
+                // Get receiver ID from intent
+                Intent in = getIntent();
+                String recID = in.getStringExtra(TAG_OID);
+
                 String msg = messageContent.getText().toString();
 
                 // Send Message
-                new onSendMessage().execute(account, );
+                new onSendMessage().execute(account, recID, msg);
             }
         });
 
@@ -93,7 +98,7 @@ public class PetSendMessage extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(PetSendMessage.this);
-            pDialog.setMessage("Saving pet ...");
+            pDialog.setMessage("Sending message ...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -112,7 +117,7 @@ public class PetSendMessage extends AppCompatActivity {
 
 
             // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair(TAG_SENDER,sender));
             params.add(new BasicNameValuePair(TAG_RECEIVER, receiver));
             params.add(new BasicNameValuePair(TAG_MESSAGE, message));
@@ -140,6 +145,8 @@ public class PetSendMessage extends AppCompatActivity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once message updated
             pDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "Message sent!", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 

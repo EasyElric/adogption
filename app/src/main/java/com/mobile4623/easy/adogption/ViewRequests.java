@@ -56,9 +56,9 @@ public class ViewRequests extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_pet);
+        setContentView(R.layout.activity_view_requests);
 
-        requestList = (ListView) findViewById(R.id.list_pet_search);
+        requestList = (ListView) findViewById(R.id.list_requests);
         requestAdapter = new RequestAdapter(ViewRequests.this,requestArrayList);
         requestList.setAdapter(requestAdapter);
 
@@ -106,7 +106,7 @@ public class ViewRequests extends Activity {
         protected Void doInBackground(String... args) {
             // Building Parameters
             String username = args[0];
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair(TAG_ACCOUNT, username));
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(
@@ -138,8 +138,7 @@ public class ViewRequests extends Activity {
                         String message = c.getString(TAG_MESSAGE);
                         String receiver = c.getString(TAG_RECEIVER);
 
-
-                        request.setSender(sender); // Storing each json item in the pet
+                        request.setSender(sender);
                         request.setMessage(message);
                         request.setReceiver(receiver);
 

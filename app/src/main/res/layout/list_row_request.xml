@@ -17,7 +17,7 @@
         android:typeface="sans" />
     <!-- Message-->
     <TextView
-        android:id="@+id/reqquest_row_message"
+        android:id="@+id/request_row_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/petRowName"

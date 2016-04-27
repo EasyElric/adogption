@@ -55,7 +55,6 @@ public class LoginScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login_screen);
 
     Button btnLogIn = (Button) findViewById(R.id.loginBtn);

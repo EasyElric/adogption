@@ -161,9 +161,10 @@ public class CreateAccount extends AppCompatActivity {
          * After completing background task Dismiss the progress dialog
          **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once product uupdated
+            // dismiss the dialog once product updated
             pDialog.dismiss();
             CreateAccount.this.postCreate();
+            finish();
         }
     }
 
@@ -188,12 +189,12 @@ public class CreateAccount extends AppCompatActivity {
                 if(typeRaw.equals("Owner")){
                     Intent i = new Intent(getApplicationContext(),
                             OwnerHome.class);
-                    Log.e("Success error", "inside if owner");
+                    Log.e("Success error", "inside of owner");
                     startActivity(i);
                 }else if(typeRaw.equals("User")){
                     Intent i = new Intent(getApplicationContext(),
                             UserHome.class);
-                    Log.e("Success error", "inside if user");
+                    Log.e("Success error", "inside of user");
                     startActivity(i);
                 }
             }
