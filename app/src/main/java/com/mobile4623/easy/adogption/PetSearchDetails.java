@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -261,6 +262,8 @@ public class PetSearchDetails extends Activity {
             // dismiss the dialog once product updated
             pDialog.dismiss();
             //PetSearchDetails.this.goBack();
+
+            Toast.makeText(getApplicationContext(), "Added to favorites!", Toast.LENGTH_LONG).show();
 
         }
     }

@@ -178,11 +178,7 @@ public class ManagePets extends Activity {
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-
                     petAdapter.notifyDataSetChanged();
-
-
-
 
                 }
             });
