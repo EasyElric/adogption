@@ -59,6 +59,7 @@ public class PetSearchDetails extends Activity {
     private static final String OWNER_NAME = "oname";
     private static final String OWNER_DESC = "odescription";
     private static final String OWNER_LOCA = "olocation";
+    private static final String TAG_OID = "uid";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +104,13 @@ public class PetSearchDetails extends Activity {
 
             @Override
             public void onClick(View view) {
-                // Open contact owner activity
+                // Open send message activity
+                // Launching create new product activity
+                Intent i = new Intent(getApplicationContext(),
+                        PetSendMessage.class);
+                i.putExtra(TAG_OID, )
+                startActivity(i);
+
 
             }
         });
@@ -114,7 +121,6 @@ public class PetSearchDetails extends Activity {
             public void onClick(View view) {
                 // Return to Pet Search
                 finish();
-                //goBack();
 
             }
         });
@@ -235,7 +241,7 @@ public class PetSearchDetails extends Activity {
             Log.e("account", account);
 
             // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair(TAG_ID, pid));
             params.add(new BasicNameValuePair(TAG_ACCOUNT, account));
 
@@ -266,11 +272,5 @@ public class PetSearchDetails extends Activity {
             Toast.makeText(getApplicationContext(), "Added to favorites!", Toast.LENGTH_LONG).show();
 
         }
-    }
-
-    public void goBack(){
-        Intent i = new Intent(getApplicationContext(),
-                PetSearch.class);
-        startActivity(i);
     }
 }

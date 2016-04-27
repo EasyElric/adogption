@@ -27,7 +27,7 @@
         <activity android:name=".EditPet" />
         <activity android:name=".PetSearchDetails" />
         <activity android:name=".PetFavorites" />
-        <activity android:name=".PetContactOwner"></activity>
+        <activity android:name=".PetSendMessage"></activity>
     </application>
 
 </manifest>
