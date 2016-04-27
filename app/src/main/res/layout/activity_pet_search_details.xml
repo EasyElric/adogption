@@ -12,7 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:id="@+id/petInfo">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/petInfoLabel"
+            android:text="Pet Info:"
+            android:textSize="20dp"
+            android:textColor="@color/White"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -22,7 +31,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/pet_name"/>
+            android:id="@+id/pet_name"
+            android:textColor="@color/White"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,71 +42,100 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/pet_age"/>
+                android:id="@+id/pet_age"
+                android:textColor="@color/White"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/pet_breed"/>
+                android:id="@+id/pet_breed"
+                android:textColor="@color/White"/>
 
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/pet_description"/>
+            android:id="@+id/pet_description"
+            android:textColor="@color/White"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/pet_location"/>
+            android:id="@+id/pet_location"
+            android:textColor="@color/White"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/ownerInfo"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/owner_name"/>
+            android:id="@+id/ownerInfoLabel"
+            android:text="Owner Info:"
+            android:textSize="20dp"
+            android:textColor="@color/White"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/owner_location"/>
+            android:id="@+id/owner_name"
+            android:textColor="@color/White"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/owner_description"/>
+            android:id="@+id/owner_location"
+            android:textColor="@color/White"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/owner_description"
+            android:textColor="@color/White"/>
 
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".25"
         android:id="@+id/btn_favorite"
         android:text="@string/favorite"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:background="@drawable/button_shape"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight=".4"
         android:id="@+id/btn_contact"
         android:text="@string/contact_owner"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/button_shape" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight=".25"
         android:id="@+id/btn_cancel"
         android:text="Back"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:background="@drawable/button_shape" />
+
+    </LinearLayout>
 
 </RelativeLayout>

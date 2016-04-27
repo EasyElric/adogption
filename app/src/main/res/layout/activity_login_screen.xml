@@ -13,7 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <Space
             android:layout_width="match_parent"
@@ -25,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:text="@string/app_name"
-            android:layout_weight="0.13"
+            android:layout_weight="0.15"
             android:textAlignment="center"
             android:textSize="44dp"
             android:textColor="@color/White"
@@ -34,7 +35,7 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight=".15"/>
+            android:layout_weight=".25"/>
 
         <EditText
             android:id="@+id/username"
@@ -53,7 +54,7 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight=".1"/>
+            android:layout_weight=".2"/>
 
         <LinearLayout
             android:id="@+id/login_buttons"
@@ -62,15 +63,10 @@
             android:layout_weight=".1"
             android:orientation="horizontal">
 
-            <Space
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight=".1"/>
-
             <Button
                 android:id="@+id/createAcct"
                 android:layout_width="0dp"
-                android:layout_weight=".3"
+                android:layout_weight=".45"
                 android:layout_height="match_parent"
                 android:text="@string/create_acct"
                 android:background="@drawable/button_rounded" />
@@ -78,27 +74,17 @@
             <Space
                 android:layout_height="match_parent"
                 android:layout_width="0dp"
-                android:layout_weight=".2"/>
+                android:layout_weight=".1"/>
 
             <Button
                 android:id="@+id/loginBtn"
                 android:layout_width="0dp"
-                android:layout_weight=".3"
+                android:layout_weight=".45"
                 android:layout_height="match_parent"
                 android:text="@string/loginBtn"
                 android:background="@drawable/button_rounded"/>
-
-            <Space
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight=".1"/>
-
         </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".2"/>
 
     </LinearLayout>
 </RelativeLayout>

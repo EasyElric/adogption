@@ -31,7 +31,8 @@
                 android:textSize="14dp"
                 android:layout_marginLeft="180dip"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/button_rounded"/>
         </RelativeLayout>
 
         <Button

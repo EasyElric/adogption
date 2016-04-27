@@ -13,7 +13,7 @@
     <string name="add_pet_btn">Add Pet</string>
     <string name="to_owner_home">Owner Home</string>
     <string name="favorite">Favorite</string>
-    <string name="contact_owner">Contact Owner</string>
+    <string name="contact_owner"> Contact Owner </string>
     <string-array name="animal_type_array">
         <item>Dog</item>
         <item>Cat</item>
