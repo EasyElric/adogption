@@ -20,6 +20,7 @@
 	$array["location"]=$row['Location'];
 	$array["breed"]=$row['Breed'];
 	$array["animal"]=$row['Animal'];
+	$array["aid"]=$row['aid'];
 	$aid = $row['aid'];
 	
 			
