@@ -33,13 +33,13 @@ public class PetSendMessage extends AppCompatActivity {
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_SENDER = "account";
+    private static final String TAG_SENDER = "sender";
     private static final String TAG_RECEIVER = "receiver";
     private static final String TAG_MESSAGE = "message";
     private static final String TAG_LOGIN = "login";
     private static final String TAG_OID = "uid";
 
-    String account; // account id
+    String account; // account username
 
 
     @Override
@@ -125,7 +125,7 @@ public class PetSendMessage extends AppCompatActivity {
             // sending modified data through http request
             // Notice that update product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(
-                    WebConstants.URL_CREATE_PET, "POST", params);
+                    WebConstants.URL_SEND_REQUEST, "POST", params);
 
 
             //debug test
