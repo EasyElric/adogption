@@ -127,9 +127,7 @@ public class AddPet extends Activity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Intent i = new Intent(getApplicationContext(),
-                        OwnerHome.class);
-                startActivity(i);
+                finish();
             }
 
         });
@@ -212,8 +210,11 @@ public class AddPet extends Activity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once product updated
             pDialog.dismiss();
+            AddPet.this.goBack();
         }
     }
+
+    public void goBack(){finish();}
 
 //    /**
 //     * Opens dialog picker, so the user can select image from the gallery. The

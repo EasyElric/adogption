@@ -270,8 +270,6 @@ public class EditPet extends AppCompatActivity {
     }
 
     public void goBack(){
-        Intent i = new Intent(getApplicationContext(),
-                ManagePets.class);
-        startActivity(i);
+        finish();
     }
 }
