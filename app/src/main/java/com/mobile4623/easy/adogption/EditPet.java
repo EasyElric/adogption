@@ -31,6 +31,7 @@ public class EditPet extends AppCompatActivity {
     String account;
 
     Button btnSave;
+    Button btnDelete;
     Button btnCancel;
 
     String pid; // pet id
@@ -84,6 +85,7 @@ public class EditPet extends AppCompatActivity {
         //add pet button
         btnSave = (Button) findViewById(R.id.btnSave);
         btnCancel = (Button) findViewById(R.id.btnCancel);
+        btnDelete = (Button) findViewById(R.id.btnDelete);
 
         // save button click event
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +103,20 @@ public class EditPet extends AppCompatActivity {
                 // starting background task to update product
 
                 new onAddPet().execute(name, age, animal, breed, location, description, pid);
+
+            }
+        });
+
+        // save button click event
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+
+                // delete pet async
+
+                new onDeletePet().execute(pid);
 
             }
         });
@@ -192,9 +208,69 @@ public class EditPet extends AppCompatActivity {
         }
     }
 
+
+    //// DELETE PET ASYNC
+    /**
+     * Background Async Task to Save product Details
+     * */
+    class onDeletePet extends AsyncTask<String, String, String> {
+
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(EditPet.this);
+            pDialog.setMessage("Deleting pet ...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+
+        }
+
+        /**
+         * deleting pet
+         * */
+        protected String doInBackground(String... args) {
+
+            String pid = args[0];
+
+            Log.i("debug values", pid);
+
+
+            // Building Parameters
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair(TAG_ID, pid));
+
+            // sending modified data through http request
+            // Notice that update product url accepts POST method
+            JSONObject json = jsonParser.makeHttpRequest(
+                    WebConstants.URL_DELETE_PET, "POST", params);
+
+
+            //debug test
+            try {
+
+                Log.i("JSON Parser", json.getString(TAG_SUCCESS));
+            }catch (Exception e) {
+                Log.e("Buffer Error", "Error converting result " + e.toString());
+            }
+
+            return null;
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         * **/
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once product updated
+            pDialog.dismiss();
+            EditPet.this.goBack();
+        }
+    }
+
     public void goBack(){
-        Intent i = new Intent(getApplicationContext(),
-                ManagePets.class);
-        startActivity(i);
+        finish();
     }
 }

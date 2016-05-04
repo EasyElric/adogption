@@ -99,6 +99,18 @@
                 android:layout_width="0dp"
                 android:layout_weight=".06"
                 android:layout_height="match_parent" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight=".4"
+                android:layout_height="wrap_content"
+                android:text="Delete Pet"
+                android:id="@+id/btnDelete"
+                android:background="@drawable/button_rounded"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_weight=".06"
+                android:layout_height="match_parent" />
             <Button
                 android:layout_width="0dp"
                 android:layout_weight=".4"
