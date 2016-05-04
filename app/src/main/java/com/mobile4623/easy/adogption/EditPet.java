@@ -108,7 +108,8 @@ public class EditPet extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View arg0) {
-                 goBack();
+                 //goBack();
+                 finish();
              }
 
         });

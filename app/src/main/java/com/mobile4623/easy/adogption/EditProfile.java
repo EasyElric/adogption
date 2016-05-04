@@ -90,7 +90,8 @@ public class EditProfile extends Activity {
 
             @Override
             public void onClick(View arg0) {
-                onCancel();
+                finish();
+                //onCancel();
             }
         });
     }
@@ -213,6 +214,7 @@ public class EditProfile extends Activity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once product updated
             pDialog.dismiss();
+            finish();
         }
     }
 
