@@ -50,6 +50,7 @@ public class ManagePets extends Activity {
     private static final String TAG_BREED = "Breed";
     private static final String TAG_LOCATION = "Location";
     private static final String TAG_DESCRIPTION = "Description";
+    private static final String TAG_IMAGE = "Image";
     private static final String TAG_ID = "ID";
 
     public String account;
@@ -86,9 +87,16 @@ public class ManagePets extends Activity {
 
                 // build the intent
                 intent.putExtra(TAG_NAME, pet);
-                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        petArrayList.clear();
+        new LoadAllPets().execute(account);
     }
 
     /**
@@ -151,6 +159,7 @@ public class ManagePets extends Activity {
                         pet.setLocation(c.getString(TAG_LOCATION));
                         pet.setDescription(c.getString(TAG_DESCRIPTION));
                         pet.setPetID(c.getString(TAG_ID));
+                        pet.setImage(c.getString(TAG_IMAGE));
                         // adding HashList to ArrayList
                         petArrayList.add(pet);
                     }

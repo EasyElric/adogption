@@ -47,6 +47,7 @@ public class PetSearch extends Activity {
     private static final String TAG_BREED = "Breed";
     private static final String TAG_LOCATION = "Location";
     private static final String TAG_DESCRIPTION = "Description";
+    private static final String TAG_IMAGE = "Image";
     private static final String TAG_ID = "ID";
 
 
@@ -153,6 +154,7 @@ public class PetSearch extends Activity {
                         String location = c.getString(TAG_LOCATION);
                         String desc = c.getString(TAG_DESCRIPTION);
                         String pID = c.getString(TAG_ID);
+                        String encodedImage = c.getString(TAG_IMAGE);
 
 
                         pet.setName(name); // Storing each json item in the pet
@@ -162,6 +164,7 @@ public class PetSearch extends Activity {
                         pet.setLocation(location);
                         pet.setDescription(desc);
                         pet.setPetID(pID);
+                        pet.setImage(encodedImage);
 
                         // adding pet to ArrayList
                         petArrayList.add(pet);

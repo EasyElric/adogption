@@ -4,10 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="5dip" >
-
-    <!-- ListRow Left side Thumbnail image
     <LinearLayout
-        android:id="@+id/thumbnail"
+        android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -15,12 +13,11 @@
         android:padding="3dip" >
         <ImageView
             android:id="@+id/list_image"
-            android:contentDescription="@string/app_name"
-            android:layout_width="60dip"
-            android:layout_height="60dip"
-            android:src="@drawable/sunny" />
+            android:layout_width="80dip"
+            android:layout_height="80dip"
+             />
     </LinearLayout>
-    -->
+
 
     <!-- Rightend Arrow
     <ImageView
@@ -38,6 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
+        android:layout_toRightOf="@+id/image"
         android:paddingBottom ="10dip"
         android:text="Name"
         android:textColor="#040404"
@@ -61,6 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/petRowName"
+        android:layout_toRightOf="@+id/image"
         android:paddingTop="5dip"
         android:text="Breed"
         android:layout_marginLeft="40dip"
@@ -78,22 +77,24 @@
         android:text="Age"
         android:textColor="#343434"
         android:textSize="15dip" />
-    <!-- Animal-->
+    <!-- location-->
     <TextView
         android:id="@+id/petRowLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/petRowBreed"
+        android:layout_toRightOf="@+id/image"
         android:paddingTop="5dip"
         android:text="Location"
         android:layout_marginLeft="40dip"
         android:textColor="#343434"
         android:textSize="15dip" />
-    <!-- Animal-->
+    <!-- desc-->
     <TextView
         android:id="@+id/petRowDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image"
         android:layout_below="@+id/petRowLocation"
         android:paddingTop="5dip"
         android:text="Description"

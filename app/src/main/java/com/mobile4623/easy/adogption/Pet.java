@@ -19,6 +19,7 @@ public class Pet implements Parcelable {
     private String picture="";
     private String description="";
     private String location="";
+    private String image="";
 
 
     public Pet(){
@@ -35,6 +36,7 @@ public class Pet implements Parcelable {
         picture = in.readString();
         description = in.readString();
         location = in.readString();
+        image = in.readString();
     }
 
     public void setPetID(String id){petID = id;}
@@ -42,7 +44,7 @@ public class Pet implements Parcelable {
     public void setBreed(String b){breed = b;}
     public void setAge(String a){age = a;}
     public void setAnimal(String a){animal = a;}
-    public void setPicture(String p){picture = p;}
+    public void setImage(String p){image = p;}
     public void setDescription(String d){description = d;}
     public void setLocation(String l){location = l;}
 
@@ -51,7 +53,7 @@ public class Pet implements Parcelable {
     public String getBreed() {return breed;}
     public String getAge() {return age;}
     public String getAnimal() {return animal;}
-    public String getPicture() {return picture;}
+    public String getImage() {return image;}
     public String getDescription() {return description;}
     public String getLocation() {return location;}
 
@@ -70,6 +72,7 @@ public class Pet implements Parcelable {
         dest.writeString(picture);
         dest.writeString(description);
         dest.writeString(location);
+        dest.writeString(image);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods

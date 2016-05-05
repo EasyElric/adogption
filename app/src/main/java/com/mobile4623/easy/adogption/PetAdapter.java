@@ -1,10 +1,14 @@
 package com.mobile4623.easy.adogption;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -54,6 +58,7 @@ public class PetAdapter extends BaseAdapter{
         TextView txtAnimal=(TextView)convertView.findViewById(R.id.petRowAnimal);
         TextView txtLocation=(TextView)convertView.findViewById(R.id.petRowLocation);
         TextView txtDesc=(TextView)convertView.findViewById(R.id.petRowDesc);
+        ImageView imgView = (ImageView) convertView.findViewById(R.id.list_image);
 
         Pet pet = data.get(position);
 
@@ -63,6 +68,13 @@ public class PetAdapter extends BaseAdapter{
         txtAnimal.setText(pet.getAnimal());
         txtLocation.setText(pet.getLocation());
         txtDesc.setText(pet.getDescription());
+
+        //decode image and set
+        String encoded=pet.getImage();
+        byte[] decodedString = Base64.decode(encoded, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        imgView.setImageBitmap(decodedByte);
+
 
         return convertView;
     }

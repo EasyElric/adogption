@@ -8,11 +8,16 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,9 +36,10 @@ public class PetSearchDetails extends Activity {
     // UI elements (pet info, owner info, three action buttons)
     TextView petName, petAge, petBreed, petDescription, petLocation;
     TextView ownerName, ownerDescription, ownerLocation;
+    ImageView petImage;
     Button btnFavorite,btnContact,btnBack;
 
-    String pName, pAge, pBreed, pDescription, pLocation,
+    String pName, pAge, pBreed, pDescription, pLocation,pImage,
             oName, oDescription, oLocation, oID;
 
     String account; // account id
@@ -54,6 +60,7 @@ public class PetSearchDetails extends Activity {
     private static final String TAG_AGE = "age";
     //private static final String TAG_ANIMAL = "animal";
     private static final String TAG_BREED = "breed";
+    private static final String TAG_IMAGE = "image";
     private static final String TAG_LOCATION = "location";
     private static final String TAG_DESCRIPTION = "description";
     private static final String OWNER_NAME = "oname";
@@ -87,6 +94,7 @@ public class PetSearchDetails extends Activity {
         ownerName = (TextView)findViewById(R.id.owner_name);
         ownerDescription = (TextView)findViewById(R.id.owner_description);
         ownerLocation = (TextView)findViewById(R.id.owner_location);
+        petImage = (ImageView)findViewById(R.id.pet_image);
         btnFavorite = (Button)findViewById(R.id.btn_favorite);
         btnContact = (Button)findViewById(R.id.btn_contact);
         btnBack = (Button)findViewById(R.id.btn_cancel);
@@ -171,6 +179,7 @@ public class PetSearchDetails extends Activity {
                 pBreed = json.getString(TAG_BREED);
                 pDescription= json.getString(TAG_DESCRIPTION);
                 pLocation = json.getString(TAG_LOCATION);
+                pImage = json.getString(TAG_IMAGE);
                 oName = json.getString(OWNER_NAME);
                 oDescription = json.getString(OWNER_DESC);
                 oLocation = json.getString(OWNER_LOCA);
@@ -203,6 +212,11 @@ public class PetSearchDetails extends Activity {
         ownerName.setText(oName);
         ownerDescription.setText(oDescription);
         ownerLocation.setText(oLocation);
+
+        //decode image and set
+        byte[] decodedString = Base64.decode(pImage, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        petImage.setImageBitmap(decodedByte);
     }
 
 

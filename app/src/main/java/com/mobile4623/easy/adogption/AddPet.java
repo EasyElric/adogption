@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -28,6 +29,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,8 +56,10 @@ public class AddPet extends Activity {
     private Button uploadButton;
     private Bitmap bitmap;
     private Button btnSelectImage;
-    // number of images to select
-    private static final int PICK_IMAGE = 1;
+
+    private static final int SELECT_PHOTO = 100;
+
+    String encodedImage="";
 
     String pid;
     // Progress Dialog
@@ -65,6 +70,7 @@ public class AddPet extends Activity {
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
+    private static final String TAG_IMAGE = "image";
     private static final String TAG_ANIMAL = "animal";
     private static final String TAG_BREED = "breed";
     private static final String TAG_NAME = "name";
@@ -134,12 +140,15 @@ public class AddPet extends Activity {
         //pick image button
         btnSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View arg0) {
-               // selectImageFromGallery();
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, SELECT_PHOTO);
             }
-
         });
     }
+
+
 
     /**
      * Background Async Task to Save product Details
@@ -186,6 +195,7 @@ public class AddPet extends Activity {
             params.add(new BasicNameValuePair(TAG_LOCATION, location));
             params.add(new BasicNameValuePair(TAG_DESCRIPTION, description));
             params.add(new BasicNameValuePair(TAG_ACCOUNT,account));
+            params.add(new BasicNameValuePair(TAG_IMAGE,encodedImage));
 
             // sending modified data through http request
             // Notice that update product url accepts POST method
@@ -216,74 +226,34 @@ public class AddPet extends Activity {
 
     public void goBack(){finish();}
 
-//    /**
-//     * Opens dialog picker, so the user can select image from the gallery. The
-//     * result is returned in the method <code>onActivityResult()</code>
-//     */
-//    public void selectImageFromGallery() {
-//        Intent intent = new Intent();
-//        intent.setType("image/*");
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        startActivityForResult(Intent.createChooser(intent, "Select Picture"),PICK_IMAGE);
-//    }
-//
-//    /**
-//     * Retrives the result returned from selecting image, by invoking the method
-//     * <code>selectImageFromGallery()</code>
-//     */
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && null != data) {
-//            Uri selectedImage = data.getData();
-//            String[] filePathColumn = { MediaStore.Images.Media.DATA };
-//
-//            Cursor cursor = getContentResolver().query(selectedImage,
-//                    filePathColumn, null, null, null);
-//            cursor.moveToFirst();
-//
-//            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//            String picturePath = cursor.getString(columnIndex);
-//            cursor.close();
-//
-//            decodeFile(picturePath);
-//
-//        }
-//    }
-//
-//    /** The method decodes the image file to avoid out of memory issues. Sets the
-//     * selected image in to the ImageView.
-//     *
-//     * @param filePath
-//     */
-//    public void decodeFile(String filePath) {
-//
-//        // Decode image size
-//        BitmapFactory.Options o = new BitmapFactory.Options();
-//        o.inJustDecodeBounds = true;
-//        BitmapFactory.decodeFile(filePath, o);
-//
-//        // The new size we want to scale to
-//        final int REQUIRED_SIZE = 1024;
-//
-//        // Find the correct scale value. It should be the power of 2.
-//        int width_tmp = o.outWidth, height_tmp = o.outHeight;
-//        int scale = 1;
-//        while (true) {
-//            if (width_tmp < REQUIRED_SIZE && height_tmp < REQUIRED_SIZE)
-//                break;
-//            width_tmp /= 2;
-//            height_tmp /= 2;
-//            scale *= 2;
-//        }
-//
-//        // Decode with inSampleSize
-//        BitmapFactory.Options o2 = new BitmapFactory.Options();
-//        o2.inSampleSize = scale;
-//        bitmap = BitmapFactory.decodeFile(filePath, o2);
-//
-//        image.setImageBitmap(bitmap);
-//    }
+   @Override
+protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+    super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
+    switch(requestCode) {
+    case SELECT_PHOTO:
+        if(resultCode == RESULT_OK){
+            Uri selectedImage = imageReturnedIntent.getData();
+
+            try{
+                InputStream imageStream = getContentResolver().openInputStream(selectedImage);
+                Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
+                image.setImageBitmap(yourSelectedImage);
+
+
+                image.buildDrawingCache();
+                Bitmap bm = image.getDrawingCache();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] b = baos.toByteArray();
+
+                encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+                Log.e("image encoded to:", encodedImage);
+            } catch(Exception e){
+                Log.e("input stream", "Error: " + e.toString());
+            }
+
+        }
+    }
+}
 }

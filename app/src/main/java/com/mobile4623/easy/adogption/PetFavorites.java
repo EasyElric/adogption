@@ -2,10 +2,13 @@ package com.mobile4623.easy.adogption;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.apache.http.NameValuePair;
@@ -43,6 +46,7 @@ public class PetFavorites extends Activity {
     private static final String TAG_BREED = "Breed";
     private static final String TAG_LOCATION = "Location";
     private static final String TAG_DESCRIPTION = "Description";
+    private static final String TAG_IMAGE = "Image";
     private static final String TAG_ID = "ID";
     private static final String TAG_LOGIN = "login";
     private static final String TAG_ACCOUNT = "account";
@@ -65,6 +69,19 @@ public class PetFavorites extends Activity {
 
         // Loading products in Background Thread
         new LoadFavorites().execute();
+
+        // ClickListener for each task item
+        petList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Pet pet = (Pet) parent.getAdapter().getItem(position);
+                Intent intent = new Intent(getApplicationContext(), PetSearchDetails.class);
+
+                // build the intent
+                intent.putExtra(TAG_NAME, pet);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -126,6 +143,7 @@ public class PetFavorites extends Activity {
                         String location = c.getString(TAG_LOCATION);
                         String desc = c.getString(TAG_DESCRIPTION);
                         String pID = c.getString(TAG_ID);
+                        String encodedImage = c.getString(TAG_IMAGE);
 
 
                         pet.setName(name); // Storing each json item in the pet
@@ -135,6 +153,7 @@ public class PetFavorites extends Activity {
                         pet.setLocation(location);
                         pet.setDescription(desc);
                         pet.setPetID(pID);
+                        pet.setImage(encodedImage);
 
                         // adding pet to ArrayList
                         petArrayList.add(pet);
