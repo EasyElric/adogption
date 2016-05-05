@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 
@@ -103,7 +104,7 @@ public class AddPet extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         animalType.setAdapter(adapter);
 
-        // save button click event
+        // add button click event
         btnAdd.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -123,9 +124,20 @@ public class AddPet extends Activity {
                 String location = txtLocation.getText().toString();
                 String description = txtDescription.getText().toString();
 
-                // starting background task to update product
-
-                new onAddPet().execute(name, age, animal, breed, location, description, account);
+                if (name.length()!=0 && age.length() !=0 && breed.length() !=0
+                        && location.length() !=0) {
+                    new onAddPet().execute(name, age, animal, breed, location, description, account);
+                } else {
+                    if (name.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "Please enter a name for your pet!", Toast.LENGTH_SHORT).show();
+                    } else if (age.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "Please enter an age for your pet!", Toast.LENGTH_SHORT).show();
+                    } else if (breed.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "Please enter a breed for your pet!", Toast.LENGTH_SHORT).show();
+                    } else if (location.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "Please enter a location for your pet!", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 
@@ -148,10 +160,8 @@ public class AddPet extends Activity {
         });
     }
 
-
-
     /**
-     * Background Async Task to Save product Details
+     * Background Async Task to Add pet to database
      * */
     class onAddPet extends AsyncTask<String, String, String> {
 
@@ -182,10 +192,6 @@ public class AddPet extends Activity {
             String location = args[4];
             String description = args[5];
 
-
-            //test
-            Log.e("account", account);
-
             // Building Parameters
             List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair(TAG_NAME, name));
@@ -197,19 +203,8 @@ public class AddPet extends Activity {
             params.add(new BasicNameValuePair(TAG_ACCOUNT,account));
             params.add(new BasicNameValuePair(TAG_IMAGE,encodedImage));
 
-            // sending modified data through http request
-            // Notice that update product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(
                     WebConstants.URL_CREATE_PET, "POST", params);
-
-
-            //debug test
-            try {
-
-                Log.i("JSON Parser", json.getString(TAG_SUCCESS));
-            }catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
-            }
 
             return null;
         }
@@ -226,34 +221,34 @@ public class AddPet extends Activity {
 
     public void goBack(){finish();}
 
+    // on pick image activity result
    @Override
-protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-    super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
-    switch(requestCode) {
-    case SELECT_PHOTO:
-        if(resultCode == RESULT_OK){
-            Uri selectedImage = imageReturnedIntent.getData();
+        switch(requestCode) {
+        case SELECT_PHOTO:
+            if(resultCode == RESULT_OK){
+                Uri selectedImage = imageReturnedIntent.getData();
 
-            try{
-                InputStream imageStream = getContentResolver().openInputStream(selectedImage);
-                Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
-                image.setImageBitmap(yourSelectedImage);
+                try{
+                    InputStream imageStream = getContentResolver().openInputStream(selectedImage);
+                    Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
+                    image.setImageBitmap(yourSelectedImage);
 
 
-                image.buildDrawingCache();
-                Bitmap bm = image.getDrawingCache();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] b = baos.toByteArray();
+                    image.buildDrawingCache();
+                    Bitmap bm = image.getDrawingCache();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] b = baos.toByteArray();
 
-                encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-                Log.e("image encoded to:", encodedImage);
-            } catch(Exception e){
-                Log.e("input stream", "Error: " + e.toString());
+                    encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+                } catch(Exception e){
+                    Log.e("input stream", "Error: " + e.toString());
+                }
+
             }
-
         }
     }
-}
 }

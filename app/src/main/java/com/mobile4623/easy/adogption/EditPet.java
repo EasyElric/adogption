@@ -79,7 +79,6 @@ public class EditPet extends AppCompatActivity {
 
         Pet pet = intent.getParcelableExtra(ManagePets.TAG_NAME);
 
-
         txtName = (EditText) findViewById(R.id.edit_name);
         txtAge = (EditText) findViewById(R.id.edit_age);
         txtAnimal = (TextView) findViewById(R.id.edit_animal);
@@ -108,7 +107,7 @@ public class EditPet extends AppCompatActivity {
         btnDelete = (Button) findViewById(R.id.btnDelete);
         btnChooseImage = (Button) findViewById(R.id.btnChoose);
 
-        //edit image
+        //edit image button click
         btnChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,15 +137,12 @@ public class EditPet extends AppCompatActivity {
             }
         });
 
-        // save button click event
+        // Delete button click event
         btnDelete.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-
-
                 // delete pet async
-
                 new onDeletePet().execute(pid);
 
             }
@@ -163,7 +159,7 @@ public class EditPet extends AppCompatActivity {
     }
 
     /**
-     * Background Async Task to Save product Details
+     * Background Async Task to Save pet Details
      * */
     class onAddPet extends AsyncTask<String, String, String> {
 
@@ -182,7 +178,7 @@ public class EditPet extends AppCompatActivity {
         }
 
         /**
-         * Saving product
+         * Saving pet
          * */
         protected String doInBackground(String... args) {
 
@@ -195,13 +191,6 @@ public class EditPet extends AppCompatActivity {
             String description = args[5];
             String pid = args[6];
 
-            Log.i("debug values", name);
-            Log.i("debug values", age);
-            Log.i("debug values", pid);
-
-            //test
-            Log.e("account", account);
-
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair(TAG_ID, pid));
@@ -213,19 +202,9 @@ public class EditPet extends AppCompatActivity {
             params.add(new BasicNameValuePair(TAG_DESCRIPTION, description));
             params.add(new BasicNameValuePair(TAG_IMAGE,encodedImage));
 
-            // sending modified data through http request
-            // Notice that update product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(
                     WebConstants.URL_EDIT_PET, "POST", params);
 
-
-            //debug test
-            try {
-
-                Log.i("JSON Parser", json.getString(TAG_SUCCESS));
-            }catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
-            }
 
             return null;
         }
@@ -242,9 +221,6 @@ public class EditPet extends AppCompatActivity {
 
 
     //// DELETE PET ASYNC
-    /**
-     * Background Async Task to Save product Details
-     * */
     class onDeletePet extends AsyncTask<String, String, String> {
 
         /**
@@ -268,26 +244,12 @@ public class EditPet extends AppCompatActivity {
 
             String pid = args[0];
 
-            Log.i("debug values", pid);
-
-
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair(TAG_ID, pid));
 
-            // sending modified data through http request
-            // Notice that update product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(
                     WebConstants.URL_DELETE_PET, "POST", params);
-
-
-            //debug test
-            try {
-
-                Log.i("JSON Parser", json.getString(TAG_SUCCESS));
-            }catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
-            }
 
             return null;
         }
@@ -302,6 +264,7 @@ public class EditPet extends AppCompatActivity {
         }
     }
 
+    // on activity result for pick image
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
@@ -316,7 +279,6 @@ public class EditPet extends AppCompatActivity {
                         Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
                         imgImage.setImageBitmap(yourSelectedImage);
 
-
                         imgImage.buildDrawingCache();
                         Bitmap bm = imgImage.getDrawingCache();
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -324,7 +286,6 @@ public class EditPet extends AppCompatActivity {
                         byte[] b = baos.toByteArray();
 
                         encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-                        Log.e("image encoded to:", encodedImage);
                     } catch(Exception e){
                         Log.e("input stream", "Error: " + e.toString());
                     }

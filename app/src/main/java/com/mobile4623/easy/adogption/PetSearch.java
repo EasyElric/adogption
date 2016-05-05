@@ -99,7 +99,7 @@ public class PetSearch extends Activity {
             public void afterTextChanged(Editable arg0) {}
         });
 
-        // Loading products in Background Thread
+        // Loading pets in Background Thread
         new LoadAllPets().execute();
 
         // ClickListener for each task item
@@ -134,7 +134,7 @@ public class PetSearch extends Activity {
 
 
     /**
-     * Background Async Task to Load all product by making HTTP Request
+     * Background Async Task to Load all pets by making HTTP Request
      * */
     class LoadAllPets extends AsyncTask<String, String, Void> {
 
@@ -152,7 +152,7 @@ public class PetSearch extends Activity {
         }
 
         /**
-         * getting All products from url
+         * getting All from url
          * */
         protected Void doInBackground(String... args) {
             // Building Parameters
@@ -233,11 +233,6 @@ public class PetSearch extends Activity {
 
                 }
             });
-
         }
-
     }
-
-
-
 }

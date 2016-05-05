@@ -63,7 +63,7 @@ public class OwnerHome extends AppCompatActivity {
         // checking read requests in Background Thread
         new CheckReadRequests().execute(account);
 
-        // add pet click event
+        // new pet click event
         btnNewPet.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -76,7 +76,7 @@ public class OwnerHome extends AppCompatActivity {
             }
         });
 
-        // add pet click event
+        // go to user home click event
         btnGoToUserHome.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -126,9 +126,7 @@ public class OwnerHome extends AppCompatActivity {
         });
     }
 
-    /**
-     * Background Async Task to Load all product by making HTTP Request
-     * */
+    // check if there are any new messages. If yes, display a red explanation point
     class CheckReadRequests extends AsyncTask<String, String, Void> {
 
         /**
@@ -145,7 +143,7 @@ public class OwnerHome extends AppCompatActivity {
         }
 
         /**
-         * getting All products from url
+         * check messages from url
          */
         protected Void doInBackground(String... args) {
             // Building Parameters
@@ -163,10 +161,7 @@ public class OwnerHome extends AppCompatActivity {
             }
 
             try {
-                Log.d("json returned: ", json.toString());
                 checkRead = json.getInt(TAG_NEW);
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -188,13 +183,8 @@ public class OwnerHome extends AppCompatActivity {
 
     public void postCheck(){
         if(checkRead==0){
-
             // DISPLAY NEW MESSAGE ALERT HERE
-
             readAlert.setAlpha(0.0f);
-
-
-
         }
 
     }

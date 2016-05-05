@@ -67,7 +67,7 @@ public class PetFavorites extends Activity {
         petAdapter = new PetAdapter(PetFavorites.this, petArrayList);
         petList.setAdapter(petAdapter);
 
-        // Loading products in Background Thread
+        // Loading pets in Background Thread
         new LoadFavorites().execute();
 
         // ClickListener for each task item
@@ -85,9 +85,7 @@ public class PetFavorites extends Activity {
 
     }
 
-    /**
-     * Background Async Task to Load all product by making HTTP Request
-     * */
+   //load pets
     class LoadFavorites extends AsyncTask<String, String, Void> {
 
         /**
@@ -103,9 +101,6 @@ public class PetFavorites extends Activity {
             pDialog.show();
         }
 
-        /**
-         * getting All products from url
-         */
         protected Void doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -119,8 +114,6 @@ public class PetFavorites extends Activity {
                 Log.d("JSON PET FAV", "no data retrieved. Exit.");
                 return null;
             }
-
-            Log.d("All Products: ", json.toString());
 
             try {
                 // Checking for SUCCESS TAG
@@ -178,13 +171,10 @@ public class PetFavorites extends Activity {
             // updating UI from Background Thread
             runOnUiThread(new Runnable() {
                 public void run() {
-
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-
                     petAdapter.notifyDataSetChanged();
-
 
                 }
             });

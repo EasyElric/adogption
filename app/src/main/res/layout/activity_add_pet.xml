@@ -69,11 +69,12 @@
             android:id="@+id/add_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Location"/>
+            android:hint="City, State"/>
         <ImageView
             android:id="@+id/add_picture"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            android:src="@drawable/dog_icon"
             android:hint="Please upload a picture"/>
 
 

@@ -26,7 +26,6 @@ public class EditProfile extends Activity {
 
     // JSON parser class
     JSONParser jsonParser = new JSONParser();
-    //JSONArray settings = null;
 
     //view
     EditText txtName;
@@ -40,7 +39,6 @@ public class EditProfile extends Activity {
 
     String account;
     String type;
-    //String success;
     private ProgressDialog pDialog;
 
     //constants
@@ -69,8 +67,8 @@ public class EditProfile extends Activity {
         SharedPreferences preferences = getSharedPreferences(TAG_LOGIN, MODE_PRIVATE);
         account = preferences.getString("login", "defaultStringIfNothingFound");
 
+        //load profile
         new LoadProfile().execute(account);
-
 
 
         // save button click event
@@ -85,7 +83,7 @@ public class EditProfile extends Activity {
             }
         });
 
-        // save button click event
+        // cancel button click event
         btnCancel.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -96,6 +94,7 @@ public class EditProfile extends Activity {
         });
     }
 
+    // load profile details from database
     class LoadProfile extends AsyncTask<String, String, String> {
 
         /**
@@ -126,14 +125,6 @@ public class EditProfile extends Activity {
 
             JSONObject json = jsonParser.makeHttpRequest(
                     WebConstants.URL_LOAD_EDIT_PROFILE, "POST", params);
-
-            //debug test
-            try {
-
-                Log.i("JSON Parser", json.getString(TAG_SUCCESS));
-            }catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
-            }
 
             try{
                 editName = json.getString(TAG_NAME);
@@ -197,14 +188,6 @@ public class EditProfile extends Activity {
             JSONObject json = jsonParser.makeHttpRequest(
                     WebConstants.URL_EDIT_PROFILE, "POST", params);
 
-            //debug test
-            try {
-
-                Log.i("JSON Parser", json.getString(TAG_SUCCESS));
-            }catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
-            }
-
             return null;
         }
 
@@ -230,12 +213,10 @@ public class EditProfile extends Activity {
         if(type.equals(TAG_TYPEOWNER)){
             Intent i = new Intent(getApplicationContext(),
                     OwnerHome.class);
-            Log.e("Success error", "inside if owner");
             startActivity(i);
         }else if(type.equals(TAG_TYPEUSER)){
             Intent i = new Intent(getApplicationContext(),
                     UserHome.class);
-            Log.e("Success error", "inside if user");
             startActivity(i);
         }
     }

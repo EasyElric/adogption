@@ -60,7 +60,7 @@ public class LoginScreen extends AppCompatActivity {
     Button btnLogIn = (Button) findViewById(R.id.loginBtn);
     Button btnCreateAccount = (Button) findViewById(R.id.createAcct);
 
-        // add pet click event
+        // create account click event
         btnLogIn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -114,27 +114,20 @@ public class LoginScreen extends AppCompatActivity {
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
-
         }
 
         /**
-         * Saving account
+         * Create account
          */
         protected String doInBackground(String... args) {
 
             user = args[0];
             pass = args[1];
 
-
-            //test
-            Log.e("Name", user);
-
-
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair(TAG_USERNAME, user));
             params.add(new BasicNameValuePair(TAG_PASSWORD, pass));
-
 
             // sending modified data through http request
             JSONObject json = jsonParser.makeHttpRequest(
@@ -142,7 +135,6 @@ public class LoginScreen extends AppCompatActivity {
             try {
                 success = json.getString(TAG_SUCCESS);
                 type = json.getString((TAG_TYPE));
-                Log.e("TYPE TYPE TYPE", type);
             }catch(Exception e){
                 Log.e("Success error", "Error converting result " + e.toString());
             }
@@ -178,12 +170,10 @@ public class LoginScreen extends AppCompatActivity {
                 if(type.equals(TAG_TYPEOWNER)){
                     Intent i = new Intent(getApplicationContext(),
                             OwnerHome.class);
-                    Log.e("Success error", "inside if owner");
                     startActivity(i);
                 }else if(type.equals(TAG_TYPEUSER)){
                     Intent i = new Intent(getApplicationContext(),
                             UserHome.class);
-                    Log.e("Success error", "inside if user");
                     startActivity(i);
                 }
             }

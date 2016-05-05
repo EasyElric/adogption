@@ -55,7 +55,7 @@ public class PetSendMessage extends AppCompatActivity {
         btnSend = (Button) findViewById(R.id.btnContactSend);
         messageContent = (EditText) findViewById(R.id.contact_message);
 
-        // Open contact owner activity
+        // send message on click
         btnSend.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -79,15 +79,12 @@ public class PetSendMessage extends AppCompatActivity {
             public void onClick(View view) {
                 // Return to Pet Search Details
                 finish();
-
             }
         });
-
-
     }
 
     /**
-     * Background Async Task to save message
+     * Background Async Task to send message
      * */
     class onSendMessage extends AsyncTask<String, String, String> {
 
@@ -102,19 +99,16 @@ public class PetSendMessage extends AppCompatActivity {
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
-
         }
 
         /**
-         * Saving product
+         * Sending message
          * */
         protected String doInBackground(String... args) {
-
 
             String sender = args[0];
             String receiver = args[1];
             String message = args[2];
-
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<>();
@@ -126,15 +120,6 @@ public class PetSendMessage extends AppCompatActivity {
             // Notice that update product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(
                     WebConstants.URL_SEND_REQUEST, "POST", params);
-
-
-            //debug test
-            try {
-
-                Log.i("JSON Parser", json.getString(TAG_SUCCESS));
-            }catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
-            }
 
             return null;
         }

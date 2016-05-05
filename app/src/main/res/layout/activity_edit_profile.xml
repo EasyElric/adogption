@@ -37,7 +37,7 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="name"
+                    android:hint="Name"
                     android:id="@+id/edit_user_name"/>
             </LinearLayout>
             <LinearLayout
@@ -55,7 +55,7 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="location"
+                    android:hint="City, State"
                     android:id="@+id/edit_user_location"/>
             </LinearLayout>
 
@@ -71,7 +71,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="description"
+            android:hint="Say something about yourself!"
             android:id="@+id/edit_user_desc"/>
     </LinearLayout>
 

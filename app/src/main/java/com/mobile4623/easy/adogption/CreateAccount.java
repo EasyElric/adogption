@@ -53,7 +53,6 @@ public class CreateAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-
         Spinner type = (Spinner) findViewById(R.id.create_type);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.account_type_array, android.R.layout.simple_spinner_item);
@@ -93,17 +92,9 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     /**
-     * Background Async Task to Save product Details
+     * Background Async Task to Create an account
      * */
     class onCreateAccount extends AsyncTask<String, String, String> {
-
-        //constructor
-//        public CreateAccount activity;
-//
-//        public onCreateAccount (CreateAccount a)
-//        {
-//            this.activity = a;
-//        }
 
         /**
          * Before starting background thread Show Progress Dialog
@@ -116,7 +107,6 @@ public class CreateAccount extends AppCompatActivity {
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
-
         }
 
         /**
@@ -134,10 +124,6 @@ public class CreateAccount extends AppCompatActivity {
                 type = TAG_TYPEUSER;
             }
 
-            //test
-            Log.e("Name", user);
-            Log.e("type", type);
-
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair(TAG_USERNAME, user));
@@ -147,12 +133,6 @@ public class CreateAccount extends AppCompatActivity {
             // sending modified data through http request
             JSONObject json = jsonParser.makeHttpRequest(
                     WebConstants.URL_CREATE_ACCOUNT, "POST", params);
-            try {
-                success = json.getString(TAG_SUCCESS);
-            }catch(Exception e){
-                Log.e("Success error", "Error converting result " + e.toString());
-            }
-
 
             return null;
         }
@@ -189,12 +169,10 @@ public class CreateAccount extends AppCompatActivity {
                 if(typeRaw.equals("Owner")){
                     Intent i = new Intent(getApplicationContext(),
                             OwnerHome.class);
-                    Log.e("Success error", "inside of owner");
                     startActivity(i);
                 }else if(typeRaw.equals("User")){
                     Intent i = new Intent(getApplicationContext(),
                             UserHome.class);
-                    Log.e("Success error", "inside of user");
                     startActivity(i);
                 }
             }

@@ -67,23 +67,9 @@ public class ViewRequests extends Activity {
 
         // Loading requests in Background Thread
         new LoadAllRequests().execute(account);
-
-        // ClickListener for each task item
-//        requestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Pet pet = (Pet) parent.getAdapter().getItem(position);
-//                Intent intent = new Intent(getApplicationContext(), PetSearchDetails.class);
-//
-//                // build the intent
-//                intent.putExtra(TAG_NAME, pet);
-//                startActivity(intent);
-//            }
-//        });
-
     }
     /**
-     * Background Async Task to Load all product by making HTTP Request
+     * Background Async Task to Load requests by making HTTP Request
      * */
     class LoadAllRequests extends AsyncTask<String, String, Void> {
 
@@ -101,7 +87,7 @@ public class ViewRequests extends Activity {
         }
 
         /**
-         * getting All products from url
+         * getting All requests from url
          */
         protected Void doInBackground(String... args) {
             // Building Parameters
@@ -117,8 +103,6 @@ public class ViewRequests extends Activity {
                 Log.d(TAG, "no data retrieved. Exit.");
                 return null;
             }
-
-            Log.d("All Products: ", json.toString());
 
             try {
                 // Checking for SUCCESS TAG

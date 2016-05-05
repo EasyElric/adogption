@@ -31,8 +31,6 @@ import java.util.List;
 
 public class PetSearchDetails extends Activity {
 
-    //private static final String TAG = "PetSearchDetails";
-
     // UI elements (pet info, owner info, three action buttons)
     TextView petName, petAge, petBreed, petDescription, petLocation;
     TextView ownerName, ownerDescription, ownerLocation;
@@ -58,7 +56,6 @@ public class PetSearchDetails extends Activity {
     private static final String TAG_LOGIN = "login";
     private static final String TAG_NAME = "name";
     private static final String TAG_AGE = "age";
-    //private static final String TAG_ANIMAL = "animal";
     private static final String TAG_BREED = "breed";
     private static final String TAG_IMAGE = "image";
     private static final String TAG_LOCATION = "location";
@@ -99,7 +96,7 @@ public class PetSearchDetails extends Activity {
         btnContact = (Button)findViewById(R.id.btn_contact);
         btnBack = (Button)findViewById(R.id.btn_cancel);
 
-        // Add pet to favorites click event
+        // set favorite to favorites click event
         btnFavorite.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -133,9 +130,7 @@ public class PetSearchDetails extends Activity {
         });
     }
 
-    /**
-     * Background Async Task to Save product Details
-     * */
+   // async load pet and owner info
     class onLoadInfo extends AsyncTask<String, String, String> {
 
         /**
@@ -165,13 +160,6 @@ public class PetSearchDetails extends Activity {
             JSONObject json = jsonParser.makeHttpRequest(
                     WebConstants.URL_PET_SEARCH_DETAIL, "POST", params);
 
-            //debug test
-            try {
-
-                Log.i("JSON Parser", json.getString(TAG_SUCCESS));
-            }catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
-            }
 
             try{
                 pName = json.getString(TAG_NAME);
@@ -219,10 +207,7 @@ public class PetSearchDetails extends Activity {
         petImage.setImageBitmap(decodedByte);
     }
 
-
-    /**
-     * Background Async Task to Save product Details
-     * */
+    // add this pet to favorites
     class onFavoritePet extends AsyncTask<String, String, String> {
 
         /**
@@ -264,14 +249,6 @@ public class PetSearchDetails extends Activity {
             JSONObject json = jsonParser.makeHttpRequest(
                     WebConstants.URL_ADD_FAVORITE, "POST", params);
 
-            //debug test
-            try {
-
-                Log.i("JSON Parser", json.getString(TAG_SUCCESS));
-            }catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
-            }
-
             return null;
         }
 
@@ -281,10 +258,7 @@ public class PetSearchDetails extends Activity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once product updated
             pDialog.dismiss();
-            //PetSearchDetails.this.goBack();
-
             Toast.makeText(getApplicationContext(), "Added to favorites!", Toast.LENGTH_LONG).show();
-
         }
     }
 }

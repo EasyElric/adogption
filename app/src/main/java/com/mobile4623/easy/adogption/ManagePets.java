@@ -64,12 +64,9 @@ public class ManagePets extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_pets);
 
-
-
         petList = (ListView) findViewById(R.id.list_manage_pets);
         petAdapter = new PetAdapter(ManagePets.this, petArrayList);
         petList.setAdapter(petAdapter);
-
 
         // Get username from shared preferences
         SharedPreferences preferences = getSharedPreferences(TAG_LOGIN, MODE_PRIVATE);
@@ -163,9 +160,6 @@ public class ManagePets extends Activity {
                         // adding HashList to ArrayList
                         petArrayList.add(pet);
                     }
-                } else {
-                    // no products found
-
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
