@@ -5,12 +5,18 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -37,6 +43,9 @@ public class PetSearch extends Activity {
     ArrayList<Pet> petArrayList = new ArrayList<>();
     ListView petList;
     PetAdapter petAdapter;
+    Spinner searchFilter;
+    EditText filterText;
+    Button filter;
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -60,9 +69,35 @@ public class PetSearch extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_pet);
 
+        filterText = (EditText)findViewById(R.id.filter_text);
+
+        /* Commented out for testing on filter text watch
+        filter = (Button)findViewById(R.id.btnFilter);
+        searchFilter = (Spinner) findViewById(R.id.filter_search);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.search_filter_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        searchFilter.setAdapter(adapter);
+        */
+
         petList = (ListView) findViewById(R.id.list_pet_search);
         petAdapter = new PetAdapter(PetSearch.this,petArrayList);
         petList.setAdapter(petAdapter);
+
+        filterText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+                PetSearch.this.petAdapter.getFilter().filter(cs);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {}
+        });
 
         // Loading products in Background Thread
         new LoadAllPets().execute();
@@ -79,6 +114,7 @@ public class PetSearch extends Activity {
                 startActivity(intent);
             }
         });
+
 
     }
 

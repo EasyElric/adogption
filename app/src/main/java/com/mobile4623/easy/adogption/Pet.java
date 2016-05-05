@@ -86,4 +86,9 @@ public class Pet implements Parcelable {
         }
     };
 
+    // method for filtering by any text in Pet information
+    public String petToString() {
+        return name + "," + breed + "," + age + "," + animal;
+    }
+
 }

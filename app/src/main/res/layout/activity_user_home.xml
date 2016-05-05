@@ -11,7 +11,7 @@
     <Button
         android:id="@+id/btnGoToOwnerHome"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:text="@string/to_owner_home"
         android:textSize="14dp"
         android:layout_marginLeft="180dip"
