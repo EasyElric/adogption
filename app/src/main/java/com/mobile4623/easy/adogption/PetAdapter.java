@@ -1,15 +1,18 @@
 package com.mobile4623.easy.adogption;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class PetAdapter extends BaseAdapter{
+public class PetAdapter extends BaseAdapter implements Filterable{
 
     ArrayList<Pet> data;
     Context context;
@@ -46,14 +49,14 @@ public class PetAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
 
 
-        convertView= layoutInflater.inflate(R.layout.list_row_pet, null);
+        convertView = layoutInflater.inflate(R.layout.list_row_pet, null);
 
-        TextView txtName=(TextView)convertView.findViewById(R.id.petRowName);
-        TextView txtAge=(TextView)convertView.findViewById(R.id.petRowAge);
-        TextView txtBreed=(TextView)convertView.findViewById(R.id.petRowBreed);
-        TextView txtAnimal=(TextView)convertView.findViewById(R.id.petRowAnimal);
-        TextView txtLocation=(TextView)convertView.findViewById(R.id.petRowLocation);
-        TextView txtDesc=(TextView)convertView.findViewById(R.id.petRowDesc);
+        TextView txtName =(TextView)convertView.findViewById(R.id.petRowName);
+        TextView txtAge =(TextView)convertView.findViewById(R.id.petRowAge);
+        TextView txtBreed =(TextView)convertView.findViewById(R.id.petRowBreed);
+        TextView txtAnimal =(TextView)convertView.findViewById(R.id.petRowAnimal);
+        TextView txtLocation =(TextView)convertView.findViewById(R.id.petRowLocation);
+        TextView txtDesc =(TextView)convertView.findViewById(R.id.petRowDesc);
 
         Pet pet = data.get(position);
 
@@ -65,6 +68,46 @@ public class PetAdapter extends BaseAdapter{
         txtDesc.setText(pet.getDescription());
 
         return convertView;
+    }
+
+    @Override
+    public Filter getFilter() {
+
+        Filter filter = new Filter() {
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+
+                data = (ArrayList<Pet>) results.values;
+                notifyDataSetChanged();
+            }
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+
+                FilterResults results = new FilterResults();
+                ArrayList<Pet> FilteredArrayNames = new ArrayList<>();
+
+                // perform search here using the searchConstraint String.
+                constraint = constraint.toString().toLowerCase();
+                for (int i = 0; i < data.size(); i++) {
+                    Pet dataPet = data.get(i);
+                    String dataNames = dataPet.petToString().toLowerCase();
+                    if (dataNames.toLowerCase().contains(constraint.toString()))  {
+                        FilteredArrayNames.add(dataPet);
+                    }
+                }
+
+                results.count = FilteredArrayNames.size();
+                results.values = FilteredArrayNames;
+                Log.e("VALUES", results.values.toString());
+
+                return results;
+            }
+        };
+
+        return filter;
     }
 
 }

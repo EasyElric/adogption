@@ -22,5 +22,11 @@
         <item>User</item>
         <item>Owner</item>
     </string-array>
+    <string-array name="search_filter_array">
+        <item>Name</item>
+        <item>Breed</item>
+        <item>Animal</item>
+        <item>Age</item>
+    </string-array>
 
 </resources>
